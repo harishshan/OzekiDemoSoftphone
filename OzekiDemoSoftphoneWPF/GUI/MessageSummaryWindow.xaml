@@ -1,0 +1,34 @@
+﻿<Window x:Class="OzekiDemoSoftphoneWPF.GUI.MessageSummaryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:conv="clr-namespace:OzekiDemoSoftphoneWPF.GUI.Converters"
+        Title="Message Summary" Height="262" Width="556" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Window.Resources>
+        <conv:MessageSummaryLineConverter x:Key="MessageSummaryLineConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid DataContext="{Binding MessageSummary}" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top" Width="510" Height="170">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="337" />
+                <ColumnDefinition Width="15*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Content="Message Account:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="3,3,0,3" Name="messageAccountTextBox" Text="{Binding Path=MessageAccount, Mode=OneWay}" VerticalAlignment="Center" Width="238" />
+            <Label Content="Message Summary Lines:" Grid.Row="1" HorizontalAlignment="Left" Margin="3,3,0,0" VerticalAlignment="Top" />
+            <ListBox Grid.Column="1" Grid.Row="1" Height="63" HorizontalAlignment="Left" ItemsSource="{Binding MessageSummaryLines, Converter={StaticResource MessageSummaryLineConverter}}" Margin="3,3,0,0" Name="messageSummaryLinesListBox" VerticalAlignment="Top" Width="325" />
+            <Label Content="Message Waiting:" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" />
+            <TextBox Text="{Binding Path=MessageWaiting, Mode=OneWay}" IsEnabled="false" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="3,3,0,3" Name="messageWaitingCheckBox" VerticalAlignment="Center" Width="48" />
+            <Label Content="Optional Message Headers:" Grid.Row="3" HorizontalAlignment="Left" Margin="3,3,0,77" VerticalAlignment="Center" />
+            <ListBox Grid.Column="1" Grid.Row="3" Height="26" HorizontalAlignment="Left" ItemsSource="{Binding OptionalMessageHeaders}" Margin="3,3,0,77" Name="optionalMessageHeadersListBox" VerticalAlignment="Center" Width="325" />
+        </Grid>
+        <Button Name="btnClose" Content="Close" Height="23" HorizontalAlignment="Left" Margin="228,188,0,0"  VerticalAlignment="Top" Width="75" Click="btnClose_Click" />
+    </Grid>
+</Window>

@@ -1,0 +1,583 @@
+﻿<Window x:Class="OzekiDemoSoftphoneWPF.GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:conv="clr-namespace:OzekiDemoSoftphoneWPF.GUI.Converters"
+        xmlns:video="clr-namespace:Ozeki.Media;assembly=OzekiSDK"
+        xmlns:Model="clr-namespace:OzekiDemoSoftphoneWPF.Model" Title="{Binding TitleString}" Height="647.063" Width="986" WindowStartupLocation="CenterScreen"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" Closing="Window_Closing" Loaded="Window_Loaded" Icon="/OzekiDemoSoftphoneWPF;component/Resources/sdk_icon.ico" ResizeMode="CanMinimize">
+    <Window.Resources>
+        <conv:SIPAccountToStringConverter x:Key="SIPAccountToStringConverter" />
+        <conv:IncomingToDirectionConverter x:Key="IncomingToDirectionConverter" />
+        <conv:MessageSummaryToStringConverter x:Key="MessageSummaryToStringConverter" />
+        <conv:MessageSummaryToBoolConverter x:Key="MessageSummaryToBoolConverter" />
+        <conv:FileNameToIsEnabledConverter x:Key="FileNameToIsEnabledConverter" />
+        <conv:ResolutionConverter x:Key="ResolutionConverter" />
+        <conv:ResolutionListConverter x:Key="ResolutionListConverter" />
+        <conv:FrameRateToStringConverter x:Key="FrameRateToStringConverter" />
+        <conv:FrameRateListToStringConverter x:Key="FrameRateListToStringConverter" />
+        <conv:RingtoneToStringConverter x:Key="RingtoneToStringConverter" />
+        <conv:SupportedMediaTypesToCallTypeConverter x:Key="SupportedMediaTypesToCallTypeConverter" />
+        <ItemsPanelTemplate x:Key="CodecPanelTemplate">
+            <WrapPanel Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                                   ItemWidth="80"
+                                   MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
+                                   ItemHeight="{Binding (ListView.View).ItemHeight, RelativeSource={RelativeSource AncestorType=ListView}}" />
+        </ItemsPanelTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41">
+            </RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6" />
+            <ColumnDefinition Width="760" />
+            <ColumnDefinition Width="208*" />
+        </Grid.ColumnDefinitions>
+        <Label Name="lOzekiVoIPSIPSDK" Content="Ozeki VoIP SIP SDK"  HorizontalAlignment="Left" Margin="6,7,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Grid.Column="1" Height="33.94" Width="214.75" />
+        <Button Name="btnAboutOzeki" Content="About Ozeki" Height="23" Margin="631,12,0,0" VerticalAlignment="Top" Foreground="RoyalBlue" Background="White" Click="btnAboutOzeki_Click" Grid.Column="1" HorizontalAlignment="Left" Width="82" />
+        <Button Name="btnProjects" Content="Projects" Height="23" HorizontalAlignment="Left" Margin="718,12,0,0"  VerticalAlignment="Top" Width="75" Click="btnProjects_Click" Grid.Column="1" Grid.ColumnSpan="2" />
+        <Button Name="btnWebsite" Content="Website" Height="23" HorizontalAlignment="Left" Margin="38,12,0,0"  VerticalAlignment="Top" Width="75" Click="btnWebsite_Click" Grid.Column="2" />
+        <Button Name="btnHelp" Content="Help" Height="23" Margin="118,12,0,0"  VerticalAlignment="Top" Click="btnHelp_Click" Grid.Column="2" HorizontalAlignment="Left" Width="75" />
+        <TabControl Grid.Row="1" Grid.ColumnSpan="3">
+            <TabItem Header="Softphone">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6" />
+                        <ColumnDefinition Width="760" />
+                        <ColumnDefinition Width="208*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0" />
+                        <RowDefinition Height="116" />
+                        <RowDefinition Height="6" />
+                        <RowDefinition Height="203" />
+                        <RowDefinition Height="6" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <GroupBox Name="grpRemoteVideo" Header="Remote video" Height="164" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="3" Margin="0,0,0,0" Width="196">
+                        <Grid>
+                            <video:VideoViewerWPF Width="180" Height="135" HorizontalAlignment="Left" Margin="4,7,0,0" Name="remoteVideoViewer" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                        </Grid>
+                    </GroupBox>
+                    <TabControl Height="198" HorizontalAlignment="Left" Margin="180,0,0,0" Name="tabControl1" VerticalAlignment="Top" Width="574" Grid.Row="3" Grid.Column="1">
+                        <TabItem Header="Active Calls" Name="tiPhoneCalls">
+                            <Grid>
+                                <ListView Name="lvPhoneCalls" ItemsSource="{Binding Model.PhoneCalls}" SelectedItem="{Binding Model.SelectedCall}" Margin="1,0" Height="136.04" VerticalAlignment="Top">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Width="180" Header="Phone Line" DisplayMemberBinding="{Binding PhoneLine.SIPAccount, Converter={StaticResource SIPAccountToStringConverter}}" />
+                                            <GridViewColumn Width="180" Header="Other Party" DisplayMemberBinding="{Binding OtherParty}" />
+                                            <GridViewColumn Width="55" Header="Direction" DisplayMemberBinding="{Binding IsIncoming, Converter={StaticResource IncomingToDirectionConverter}}" />
+                                            <GridViewColumn Width="130" Header="Call State" DisplayMemberBinding="{Binding ReasonOfState}" />
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <Button Name="btnAnswer" Content="Answer" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="1,141.04,0,0" Click="btnAnswer_Click" />
+                                <Button Name="btnReject" Content="Reject" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="69,141.04,0,0" Click="btnReject_Click" />
+                                <Button Name="btnHangup" Content="Hang up" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="137,141.04,0,0" Click="btnHangup_Click" />
+                                <Button Name="btnHold" Content="Hold" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Click="btnHold_Click" Margin="205,141.04,0,0" />
+                                <Button Name="btnUnhold" Content="Unhold" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="273,141.04,0,0" Click="btnUnhold_Click" />
+                                <Button Name="btnForward" Content="Forward" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="409,141.04,0,0" Click="btnForward_Click" />
+                                <Button Name="btnTransfer" Content="Transfer" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="341,141.04,0,0" Click="btnTransfer_Click" />
+                                <ComboBox Name="cbAudioVideoCall" ItemsSource="{Binding Model.CallTypes, Mode=OneWay}" SelectedItem="{Binding ElementName=lvPhoneCalls, Path=SelectedItem.SupportedMediaTypes, Mode=OneWay, Converter={StaticResource SupportedMediaTypesToCallTypeConverter}}" Height="23" HorizontalAlignment="Left" Margin="477,141.04,0,0" VerticalAlignment="Top" Width="83" SelectionChanged="cbAudioVideoCall_SelectionChanged" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Call History" Name="tiCallHistory">
+                            <Grid>
+                                <ListView Name="lvCallHistory" ItemsSource="{Binding Model.CallHistory.List}" Margin="1,0,7,0" Height="136" VerticalAlignment="Top" MouseDoubleClick="lvCallHistory_MouseDoubleClick">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Width="180" Header="Phone Line" DisplayMemberBinding="{Binding PhoneLine}" />
+                                            <GridViewColumn Width="180" Header="Other Party" DisplayMemberBinding="{Binding OtherParty}" />
+                                            <GridViewColumn Width="55" Header="Direction" DisplayMemberBinding="{Binding IsIncoming, Converter={StaticResource IncomingToDirectionConverter}}" />
+                                            <GridViewColumn Width="130" Header="Call State" DisplayMemberBinding="{Binding ReasonOfState}" />
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <Button Name="btnRedial" Content="Redial" Height="23" HorizontalAlignment="Left" Margin="1,141,0,0" VerticalAlignment="Top" Width="63" Click="btnRedial_Click" />
+                                <Button Name="btnClearCallHistory" Content="Clear history" Height="23" HorizontalAlignment="Left" Margin="69,141,0,0" VerticalAlignment="Top" Width="81" Click="btnClearCallHistory_Click" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Messages" Name="tiMessages">
+                            <Grid>
+                                <Button Content="Clear" Name="btnClear" HorizontalAlignment="Left" Margin="479,107.08,0,0" VerticalAlignment="Top" Width="75" Click="btnClear_Click"/>
+                                <Button Content="Send" Name="btnSend" HorizontalAlignment="Left" Margin="479,134.08,0,0" VerticalAlignment="Top" Width="75" Click="btnSend_Click"/>
+                                <ListBox Height="101.08" Margin="1,0,7,0" VerticalAlignment="Top" ItemsSource="{Binding Model.InstantMessages}"/>
+                                <Label Content="To:" HorizontalAlignment="Left" Margin="4.083,106.08,0,0" VerticalAlignment="Top"/>
+                                <TextBox HorizontalAlignment="Left" Height="23" Margin="68.373,107.08,0,0" TextWrapping="Wrap" Text="{Binding Recipient}" VerticalAlignment="Top" Width="130"/>
+                                <Label Content="Message:" HorizontalAlignment="Left" Margin="4.083,133.08,0,0" VerticalAlignment="Top"/>
+                                <TextBox HorizontalAlignment="Left" Height="23" Margin="68.373,135.08,0,0" TextWrapping="Wrap" Text="{Binding InstantMessage}" VerticalAlignment="Top" Width="405.627"/>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                    <GroupBox Header="Dialpad" Height="198" HorizontalAlignment="Left" Name="grpDialPad" VerticalAlignment="Top" Width="177" Grid.Row="3" Grid.Column="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="25*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="55" />
+                                <ColumnDefinition Width="55" />
+                                <ColumnDefinition Width="55" />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="101*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="tbDial" Text="{Binding DialNumber}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="158" Margin="2,5,0,0" HorizontalContentAlignment="Right" Grid.ColumnSpan="3" />
+                            <Button Name="btnDialAudio" Content="Dial (A)" ToolTip="Make a call using only audio channel" Grid.Row="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Click="btnDialAudio_Click" />
+                            <Button Name="btnDialVideo" Content="Dial (V)" ToolTip="Make a call using audio and video channels" Grid.Row="1" Grid.Column="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Click="btnDialVideo_Click" />
+                            <Button Name="btnDialPadIP" Content="Dial (IP)" ToolTip="Make a call directly to an IP address" Grid.Row="1" Grid.Column="2" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Click="btnDialPadIP_Click" />
+                            <Button Name="btnKey1" Content="1" Tag="1" Grid.Row="2" Grid.Column="0" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
+                            <Button Name="btnKey2" Content="2" Tag="2" Grid.Row="2" Grid.Column="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
+                            <Button Name="btnKey3" Content="3" Tag="3" Grid.Row="2" Grid.Column="2" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
+                            <Button Name="btnKey4" Content="4" Tag="4" Grid.Row="3" Grid.Column="0" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
+                            <Button Name="btnKey5" Content="5" Tag="5" Grid.Row="3" Grid.Column="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
+                            <Button Name="btnKey6" Content="6" Tag="6" Grid.Row="3" Grid.Column="2" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
+                            <Button Name="btnKey7" Content="7" Tag="7" Grid.Row="4" Grid.Column="0" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
+                            <Button Name="btnKey8" Content="8" Tag="8" Grid.Row="4" Grid.Column="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
+                            <Button Name="btnKey9" Content="9" Tag="9" Grid.Row="4" Grid.Column="2" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
+                            <Button Name="btnKeyStar" Content="*" Tag="10" Grid.Row="5" Grid.Column="0" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
+                            <Button Name="btnKey0" Content="0" Tag="0" Grid.Row="5" Grid.Column="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
+                            <Button Name="btnKeyHash" Content="#" Tag="11" Grid.Row="5" Grid.Column="2" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Name="grpPhoneLine" Header="Phone line settings" HorizontalAlignment="Left"  Width="323" Grid.Column="1" Grid.Row="1" Margin="431,0,0,5" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="118" />
+                                <ColumnDefinition Width="182" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="26" />
+                                <RowDefinition Height="26" />
+                                <RowDefinition Height="26" />
+                                <RowDefinition Height="26"/>
+                                <RowDefinition Height="7*"/>
+                            </Grid.RowDefinitions>
+                            <CheckBox Name="chkbAutoAnswer" Content="Auto-answer" IsChecked="{Binding ElementName=cbPhoneLines, Path=SelectedItem.AutoAnswer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                            <CheckBox Name="chkbDoNotDisturb" Content="DND" IsChecked="{Binding ElementName=cbPhoneLines, Path=SelectedItem.DoNotDisturb, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="100.601,5,-41.519,5" />
+                            <Label Grid.Row="1" Content="Keep-alive mode:" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <ComboBox Name="cbKeepAlive" Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" ItemsSource="{Binding KeepAliveValues}" SelectedItem="{Binding ElementName=cbPhoneLines, Path=SelectedItem.Config.KeepAliveMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="100" Margin="0,1.5"  />
+                            <Label Grid.Row="2" Content="Keep-alive interval:" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBox Name="tbKeepAliveInterval" Grid.Column="1" Grid.Row="2" Text="{Binding ElementName=cbPhoneLines, Path=SelectedItem.Config.KeepAliveInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" Height="22" Margin="0,2" />
+                            <Label Grid.Column="1" Grid.Row="2" Content="sec" Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,1.5,0,1.5" Width="27" />
+                        </Grid>
+                    </GroupBox>
+                    <Grid Background="Gainsboro" Grid.Row="5" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="297" />
+                            <ColumnDefinition Width="472" />
+                            <ColumnDefinition Width="209*" />
+                        </Grid.ColumnDefinitions>
+                        <TabControl Name="tcMedia" Height="182" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="749" Grid.ColumnSpan="2">
+                            <TabItem Header="Audio devices" Name="tiMicrophoneSpeakerSettings">
+                                <Grid>
+                                    <GroupBox Name="grpMicrophoneSettings" Header="Microphone settings" Height="110" HorizontalAlignment="Left" Margin="9,6,0,0" VerticalAlignment="Top" Width="355" Grid.RowSpan="2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60" />
+                                                <ColumnDefinition Width="214" />
+                                                <ColumnDefinition Width="77*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="6" />
+                                                <RowDefinition Height="30" />
+                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="19*" />
+                                            </Grid.RowDefinitions>
+                                            <Label Name="lMicrophoneDevice" Content="Device:" Grid.Column="0"  Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                            <ComboBox Name="cbMicrophoneDevices" ItemsSource="{Binding MediaHandlers.Microphones}" SelectedItem="{Binding MediaHandlers.Microphone.DeviceInfo, Mode=OneWay}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="0,2" SelectionChanged="cbMicrophoneDevices_SelectionChanged" />
+                                            <Button Name="btnRefreshMicrophones" Content="Refresh" Grid.Column="1" Grid.Row="3"   HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Click="btnRefreshMicrophones_Click" Margin="139,0,0,6" />
+
+                                            <Label Name="lMicrophoneVolume" Content="Volume:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                            <Slider Name="sMicrophoneVolume" Value="{Binding MediaHandlers.Microphone.Volume}" Minimum="0" Maximum="1" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.2" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="0,2,6,2" />
+                                            <CheckBox Name="chkbMicrophoneMute" IsChecked="{Binding MediaHandlers.Microphone.Muted}" Content="Mute" Grid.Column="2" Grid.Row="1" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,7" Width="59" />
+                                            <ProgressBar Name="pbMicrophoneLevel" Value="{Binding MediaHandlers.MicrophoneLevel, Mode=OneWay}" Minimum="0" Maximum="100" Grid.Column="2" Grid.Row="1" Height="75.5" VerticalAlignment="Center" Margin="0,0,4,6.5" Orientation="Vertical" Grid.RowSpan="3" HorizontalAlignment="Right" Width="14" />
+                                        </Grid>
+                                    </GroupBox>
+                                    <GroupBox Name="grpSpeakerSettings" Header="Speaker settings" Margin="369,6,-25,0" Height="110" HorizontalAlignment="Left" VerticalAlignment="Top" Width="355" Grid.RowSpan="2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60" />
+                                                <ColumnDefinition Width="214" />
+                                                <ColumnDefinition Width="77*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="6" />
+                                                <RowDefinition Height="30" />
+                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="19*" />
+                                            </Grid.RowDefinitions>
+                                            <Label Name="lSpeakerDevice" Content="Device:" Grid.Column="0"  Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                            <ComboBox Name="cbSpeakerDevices" ItemsSource="{Binding MediaHandlers.Speakers}" IsSynchronizedWithCurrentItem="True" SelectedItem="{Binding MediaHandlers.Speaker.DeviceInfo, Mode=OneWay}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="0,2" SelectionChanged="cbSpeakerDevices_SelectionChanged" />
+                                            <Button Name="btnRefreshSpeakers" Content="Refresh" Grid.Column="1" Grid.Row="3"   HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Click="btnRefreshSpeakers_Click" Margin="139,3,0,3" />
+
+                                            <Label Name="lSpeakerVolume" Content="Volume:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                            <Slider Name="sSpeakerVolume" Value="{Binding MediaHandlers.Speaker.Volume}" Minimum="0" Maximum="1" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.2" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="0,2,6,2" />
+                                            <CheckBox Name="chkbSpeakerMute" IsChecked="{Binding MediaHandlers.Speaker.Muted}" Content="Mute" Grid.Column="2" Grid.Row="1" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,7" Width="59" />
+                                            <ProgressBar Name="pbSpeakerLevel" Value="{Binding MediaHandlers.SpeakerLevel, Mode=OneWay}"  Minimum="0" Maximum="100" Grid.Column="2" Grid.Row="1" Height="78.5" VerticalAlignment="Center" Margin="0,0,4,3.5" Orientation="Vertical" Grid.RowSpan="3" HorizontalAlignment="Right" Width="14" />
+                                        </Grid>
+                                    </GroupBox>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Camera" x:Name="tiCameraSettings">
+                                <Grid>
+                                    <GroupBox x:Name="grpCameraSettings" Header="Camera settings" Height="107" HorizontalAlignment="Left" Margin="9,6,0,0" VerticalAlignment="Top" Width="395">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="80" />
+                                                <ColumnDefinition Width="214" />
+                                                <ColumnDefinition Width="77*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="6" />
+                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="19*" />
+                                            </Grid.RowDefinitions>
+                                            <Label x:Name="lCameraDevice" Content="Device:" Grid.Column="0"  Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                            <ComboBox x:Name="cbCameraDevices" ItemsSource="{Binding MediaHandlers.Cameras}" SelectedIndex="{Binding MediaHandlers.WebCamera.DeviceID, Mode=OneWay}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,6,0" SelectionChanged="cbCameraDevices_SelectionChanged" />
+                                            <Button x:Name="btnRefreshCameras" Content="Refresh" Grid.Column="2" Grid.Row="1"   HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Click="btnRefreshCameras_Click" />
+
+                                            <Label x:Name="lCameraResolution" Content="Resolution:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                            <ComboBox x:Name="cbCameraResolutions" ItemsSource="{Binding MediaHandlers.WebCamera.Capabilities, Converter={StaticResource ResolutionListConverter}}" SelectedItem="{Binding MediaHandlers.WebCamera.Resolution, Converter={StaticResource ResolutionConverter}}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="0,0,92,0" />
+
+                                            <Label x:Name="lCameraFrameRate" Content="Frame rate:" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                            <ComboBox x:Name="cbCameraFrameRates" ItemsSource="{Binding MediaHandlers.FrameRates, Converter={StaticResource FrameRateListToStringConverter}}" SelectedItem="{Binding MediaHandlers.WebCamera.DesiredFrameRate, Converter={StaticResource FrameRateToStringConverter}}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Margin="0,0,159,0" />
+                                        </Grid>
+                                    </GroupBox>
+
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Codecs">
+                                <Grid>
+                                    <GroupBox x:Name="grpAudioCodecs" Header="Audio codecs" Margin="10,5,0,0" Grid.Column="0" Height="140" VerticalAlignment="Top" HorizontalAlignment="Left" Width="355">
+                                        <Grid>
+                                            <ListBox x:Name="lbAudioCodecs" ItemsSource="{Binding Model.AudioCodecs, Mode=OneWay}" ItemsPanel="{StaticResource CodecPanelTemplate}" Height="81" Margin="6,6,10,0" VerticalAlignment="Top">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox Content="{Binding CodecName}" IsChecked="{Binding Enabled}" Tag="{Binding PayloadType}" FontSize="11" Checked="CodecCheckBox_Checked" Unchecked="CodecCheckBox_Unchecked" />
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                            <Button x:Name="btnSelectAllAudioCodecs" Content="Select all" Margin="0,92.12,90,0" VerticalAlignment="Top" Click="btnSelectAllAudioCodecs_Click" HorizontalAlignment="Right" Width="75" />
+                                            <Button x:Name="btnDeselectAllAudioCodecs" Content="Deselect all" Margin="0,92.12,10,0"  VerticalAlignment="Top" Click="btnDeselectAllAudioCodecs_Click" HorizontalAlignment="Right" Width="75" />
+                                        </Grid>
+                                    </GroupBox>
+                                    <GroupBox x:Name="grpVideoCodecs" Header="Video codecs" VerticalAlignment="Top" Margin="369,6,0,0" Grid.Column="0" Height="139" HorizontalAlignment="Left" Width="303">
+                                        <Grid>
+                                            <ListBox x:Name="lbVideoCodecs" ItemsSource="{Binding Model.VideoCodecs, Mode=OneWay}" ItemsPanel="{StaticResource CodecPanelTemplate}" Height="81" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="173">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox Content="{Binding CodecName}" IsChecked="{Binding Enabled, Mode=OneWay}" Tag="{Binding PayloadType}" FontSize="11"  Checked="CodecCheckBox_Checked" Unchecked="CodecCheckBox_Unchecked" />
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                            <Button x:Name="btnSelectAllVideoCodecs" Content="Select all"  HorizontalAlignment="Left" Margin="24,92,0,0" Width="75" Click="btnSelectAllVideoCodecs_Click" Height="22" VerticalAlignment="Top" />
+                                            <Button x:Name="btnDeselectAllVideoCodecs" Content="Deselect all" HorizontalAlignment="Left" Margin="104,92,0,0"  VerticalAlignment="Top" Width="75" Click="btnDeselectAllVideoCodecs_Click" />
+                                            <Label Content="Encoding Quality:" HorizontalAlignment="Left" Margin="184,0,0,0" VerticalAlignment="Top"  />
+                                            <ComboBox ItemsSource="{Binding VideoQualities}" SelectedItem="{Binding VideoEncoderQuality}" Margin="188,26,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="99" />
+                                        </Grid>
+                                    </GroupBox>
+
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Playback" Name="tiPlayback">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="100" />
+                                        <RowDefinition Height="96*" />
+                                    </Grid.RowDefinitions>
+                                    <GroupBox Name="grpWavPlayback" Header="Wav Playback" Height="90" HorizontalAlignment="Left" Margin="9,6,0,0"  VerticalAlignment="Top" Width="355">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40" />
+                                                <ColumnDefinition Width="300*" />
+                                                <ColumnDefinition Width="55" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="6" />
+                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="64*" />
+                                            </Grid.RowDefinitions>
+                                            <Label Name="lWavPlaybackFile" Content="File:" Grid.Row="1" Height="28" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                            <TextBox Name="tbWavPlaybackFile" Text="{Binding WavPlaybackFileName, Mode=OneWay}" IsReadOnly="True" IsEnabled="false"  VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" />
+                                            <Button Name="btnBrowseWavPlaybackFile" Content="Browse" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="2,0,2,2" Click="btnBrowseWavPlaybackFile_Click" />
+
+                                            <Button Name="btnPlayWavPlaybackFile" Content="Play" IsEnabled="{Binding ElementName=tbWavPlaybackFile, Path=Text, Converter={StaticResource FileNameToIsEnabledConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="52" Grid.Row="2" Grid.Column="1" Margin="0,1,110,0" Click="btnPlayWavPlaybackFile_Click" />
+                                            <Button Name="btnPauseWavPlaybackFile" Content="Pause" IsEnabled="{Binding ElementName=tbWavPlaybackFile, Path=Text, Converter={StaticResource FileNameToIsEnabledConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="52" Grid.Row="2" Grid.Column="1" Margin="0,1,55,0" Click="btnPauseWavPlaybackFile_Click" />
+                                            <Button Name="btnStopWavPlaybackFile" Content="Stop" IsEnabled="{Binding ElementName=tbWavPlaybackFile, Path=Text, Converter={StaticResource FileNameToIsEnabledConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="52" Grid.Row="2" Grid.Column="1" Margin="0,1,0,0" Click="btnStopWavPlaybackFile_Click" />
+                                        </Grid>
+                                    </GroupBox>
+
+                                    <GroupBox Name="grpMP3Playback" Header="MP3 Playback" Height="90" HorizontalAlignment="Left" Margin="369,6,0,0"  VerticalAlignment="Top" Width="355">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40" />
+                                                <ColumnDefinition Width="300*" />
+                                                <ColumnDefinition Width="55" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="6" />
+                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="64*" />
+                                            </Grid.RowDefinitions>
+                                            <Label Name="lMP3PlaybackFile" Content="File:" Grid.Row="1" Height="28" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                            <TextBox Name="tbMP3PlaybackFile" Text="{Binding MP3PlaybackFileName, Mode=OneWay}" IsReadOnly="True" IsEnabled="False" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"  />
+                                            <Button Name="btnBrowseMP3PlaybackFile" Content="Browse" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="2,0,2,2" Click="btnBrowseMP3PlaybackFile_Click" />
+
+                                            <Button Name="btnPlayMP3PlaybackFile" Content="Play" IsEnabled="{Binding ElementName=tbMP3PlaybackFile, Path=Text, Converter={StaticResource FileNameToIsEnabledConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="52" Grid.Row="2" Grid.Column="1" Margin="0,1,110,1" Click="btnPlayMP3PlaybackFile_Click" />
+                                            <Button Name="btnPauseMP3PlaybackFile" Content="Pause" IsEnabled="{Binding ElementName=tbMP3PlaybackFile, Path=Text, Converter={StaticResource FileNameToIsEnabledConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="52" Grid.Row="2" Grid.Column="1" Margin="0,1,55,1" Click="btnPauseMP3PlaybackFile_Click" />
+                                            <Button Name="btnStopMP3PlaybackFile" Content="Stop" IsEnabled="{Binding ElementName=tbMP3PlaybackFile, Path=Text, Converter={StaticResource FileNameToIsEnabledConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="52" Grid.Row="2" Grid.Column="1" Margin="0,1,0,1" Click="btnStopMP3PlaybackFile_Click" />
+                                        </Grid>
+                                    </GroupBox>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Record" Name="tiRecord">
+                                <Grid>
+                                    <GroupBox Name="grpWavRecord" Header="Wav Record" Height="90" Margin="9,6" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="355">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40" />
+                                                <ColumnDefinition Width="300*" />
+                                                <ColumnDefinition Width="55" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="6" />
+                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="64*" />
+                                            </Grid.RowDefinitions>
+                                            <Label Name="lWavRecordFile" Content="File:" Grid.Row="1" Height="28" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                            <TextBox Name="tbWavRecordFile" Text="{Binding WavRecordFileName, Mode=OneWay}" IsReadOnly="True" IsEnabled="False" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" />
+                                            <Button Name="btnBrowseWavRecordFile" Content="Browse" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="2,0,2,2" Click="btnBrowseWavRecordFile_Click" />
+
+                                            <Button Name="btnRecordWavRecordFile" Content="Record" IsEnabled="{Binding ElementName=tbWavRecordFile, Path=Text, Converter={StaticResource FileNameToIsEnabledConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="52" Grid.Row="2" Grid.Column="1" Margin="0,1,110,0" Click="btnPlayWavRecordFile_Click" />
+                                            <Button Name="btnPauseWavRecordFile" Content="Pause" IsEnabled="{Binding ElementName=tbWavRecordFile, Path=Text, Converter={StaticResource FileNameToIsEnabledConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="52" Grid.Row="2" Grid.Column="1" Margin="0,1,55,0" Click="btnPauseWavRecordFile_Click" />
+                                            <Button Name="btnStopWavRecordFile" Content="Stop" IsEnabled="{Binding ElementName=tbWavRecordFile, Path=Text, Converter={StaticResource FileNameToIsEnabledConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Width="52" Grid.Row="2" Grid.Column="1" Margin="0,1,0,0"  Click="btnStopWavRecordFile_Click" />
+                                        </Grid>
+                                    </GroupBox>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Ringtones">
+                                <Grid>
+                                    <GroupBox Name="grpRingback" Header="Ringback file" Height="59" HorizontalAlignment="Left" Margin="9,6,0,0"  VerticalAlignment="Top" Width="355">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40" />
+                                                <ColumnDefinition Width="300*" />
+                                                <ColumnDefinition Width="55" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="6" />
+                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="64*" />
+                                            </Grid.RowDefinitions>
+                                            <Label Name="lRingbackFile" Content="File:" Grid.Row="1" Height="28" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                            <TextBox Name="tbRingbackFile" Text="{Binding RingbackFileName, Mode=OneWay, Converter={StaticResource RingtoneToStringConverter}}" IsReadOnly="True" IsEnabled="false"  VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" />
+                                            <Button Name="btnBrowseRingbackFile" Content="Browse" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="2,0,2,2" Click="btnBrowseRingbackFile_Click" />
+                                        </Grid>
+                                    </GroupBox>
+
+                                    <GroupBox Name="grpRingtone" Header="Ringtone file" Height="59" HorizontalAlignment="Left" Margin="369,6,0,0"  VerticalAlignment="Top" Width="355">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="40" />
+                                                <ColumnDefinition Width="300*" />
+                                                <ColumnDefinition Width="55" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="6" />
+                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="64*" />
+                                            </Grid.RowDefinitions>
+                                            <Label Name="lRingtonekFile" Content="File:" Grid.Row="1" Height="28" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                            <TextBox Name="tbRingtoneFile" Text="{Binding RingtoneFileName, Mode=OneWay, Converter={StaticResource RingtoneToStringConverter}}" IsReadOnly="True" IsEnabled="false"  VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" />
+                                            <Button Name="btnBrowseRingtoneFile" Content="Browse" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="2,0,2,2" Click="btnBrowseRingtoneFile_Click" />
+                                        </Grid>
+                                    </GroupBox>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Voice Quality" Name="tiVoiceQuality">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="15" />
+                                        <ColumnDefinition Width="150" />
+                                        <ColumnDefinition Width="130" />
+                                        <ColumnDefinition Width="90" />
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="20*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="6" />
+                                        <RowDefinition Height="25" />
+                                        <RowDefinition Height="25" />
+                                        <RowDefinition Height="25" />
+                                        <RowDefinition Height="68*" />
+                                    </Grid.RowDefinitions>
+                                    <Label Name="lEchoCancellation" Content="Echo Cancellation:" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" />
+                                    <CheckBox Name="chkbEchoCancellation" Content="" IsChecked="{Binding MediaHandlers.AudioEnhancer.AcousticEchoCancellation}" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="0,4" />
+
+                                    <Label Name="lEchoDelay" Content="Echo Delay:" HorizontalAlignment="Right" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" />
+                                    <TextBox Name="tbEchoDelay" Text="{Binding MediaHandlers.AudioEnhancer.EchoDelay}" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" />
+
+                                    <Label Name="lAGC" Content="Auto Gain Control:" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" />
+                                    <CheckBox Name="chkbAGC" Content="" IsChecked="{Binding MediaHandlers.AudioEnhancer.AutoGainControl}" Grid.Row="2" Grid.Column="2" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="0,4" />
+
+                                    <Label Name="lAGCMaxGain" Content="Max Gain:" HorizontalAlignment="Right" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" />
+                                    <TextBox Name="tbAGCMaxGain" Text="{Binding MediaHandlers.AudioEnhancer.MaxGain}" Grid.Column="4" Grid.Row="2" VerticalAlignment="Center" />
+
+                                    <Label Name="lNoiseReductionLevel" Content="Noise Reduction Level:" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                    <ComboBox Name="cbNoiseReductionLevel" ItemsSource="{Binding MediaHandlers.NoiseReductionLevels}" SelectedItem="{Binding MediaHandlers.AudioEnhancer.NoiseReductionLevel}" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="0,2" />
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                        <GroupBox Name="grpLocalVideo" Header="Local video" Height="192" VerticalAlignment="Top" Grid.Column="2" HorizontalAlignment="Left">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="73*"/>
+                                    <RowDefinition Height="12*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="96*" />
+                                    <ColumnDefinition Width="94*" />
+                                </Grid.ColumnDefinitions>
+                                <video:VideoViewerWPF Width="180" Height="135" HorizontalAlignment="Left" Margin="4,7,0,0" Name="localVideoViewer" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                                <Button Content="Start camera" HorizontalAlignment="Left" Name="btnStartVideo" VerticalAlignment="Top" Width="85" Click="btnStartVideo_Click" Grid.Row="1" Margin="4,0,0,0"  />
+                                <Button Content="Stop camera" HorizontalAlignment="Right"  Name="btnStopVideo" VerticalAlignment="Top" Width="85" Click="btnStopVideo_Click" Grid.Column="1" Grid.Row="1" />
+                            </Grid>
+                        </GroupBox>
+                        <TextBox Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="23" Margin="10,193,0,0" TextWrapping="Wrap" Text="{Binding SubTitle}" VerticalAlignment="Top" Width="954" Name="subtitle"/>
+                    </Grid>
+                    <GroupBox Grid.Column="1" Header="Phone Lines" HorizontalAlignment="Left" Grid.Row="1" Width="426" Margin="0,0,0,5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8"/>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition Height="47*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="59*"/>
+                                <ColumnDefinition Width="197*"/>
+                                <ColumnDefinition Width="154*"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Name="cbPhoneLines" HorizontalAlignment="Left" ItemsSource="{Binding Model.PhoneLines, Converter={StaticResource SIPAccountToStringConverter}}" SelectedItem="{Binding Model.SelectedLine}" Height="25" VerticalAlignment="Bottom" Grid.Column="1" Width="193" Grid.Row="1">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=SIPAccount, Converter={StaticResource SIPAccountToStringConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <Label Content="Line:" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="0" />
+                            <Button Name="btnAddPhoneLine" Content="Add SIP account" HorizontalAlignment="Left" VerticalAlignment="Center" Width="96" Click="btnAddPhoneLine_Click" Grid.Column="2" Grid.Row="1" />
+                            <Button Name="btnModifyPhoneLine" Content="Modify" HorizontalAlignment="Left" Margin="99,0,0,0" VerticalAlignment="Center" Width="53" Grid.Column="2" Grid.Row="1" Click="btnModifyPhoneLine_Click" />
+                            <Button Name="btnRemovePhoneLine" Content="Remove" HorizontalAlignment="Left" Margin="99,0,0,0" VerticalAlignment="Center" Width="53" Click="btnRemovePhoneLine_Click" Grid.Column="2" Grid.Row="2" />
+                            <Label Content="Status:" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Margin="0,1" />
+                            <TextBox Name="tbPhoneLineStatus" Text="{Binding ElementName=cbPhoneLines, Path=SelectedItem.RegState, Mode=OneWay}" Grid.Row="2" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="193" />
+                            <Button Name="btnMessageSummary" Content="{Binding ElementName=cbPhoneLines, Path=SelectedItem, Mode=OneWay, Converter={StaticResource MessageSummaryToStringConverter}}" IsEnabled="{Binding ElementName=cbPhoneLines, Path=SelectedItem, Mode=OneWay, Converter={StaticResource MessageSummaryToBoolConverter}}" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="96" Click="btnMessageSummary_Click" Margin="0,3" />
+                            <Button Name="btnRegister" Content="Register" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btnRegister_Click" Grid.Row="3" Grid.Column="1" Margin="38,0,0,0" />
+                            <Button Name="btnUnRegister" Content="Unregister" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btnUnregister_Click" Grid.Row="3" Grid.Column="1" Margin="118,0,0,0" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Grid.Column="2" Header="Network" HorizontalAlignment="Left" Grid.Row="1" Width="196" Margin="0,0,0,5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition Height="26"/>
+                                <RowDefinition Height="9*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="55*"/>
+                                <ColumnDefinition Width="129*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Content="Discover NAT" HorizontalAlignment="Left" VerticalAlignment="Top" Width="82" Click="btnNatDiscovery_Click" Grid.Row="3" Margin="14,0,0,0" Grid.ColumnSpan="2" Height="22"/>
+                            <Button Content="Apply" HorizontalAlignment="Right" VerticalAlignment="Top" Width="82" Click="btnApply_Click" Grid.Row="3" Grid.Column="1"  Height="22"/>
+                            <Label Content="Local IP:" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Top" />
+                            <ComboBox Grid.Column="1" ItemsSource="{Binding Model.LocalIPAddressList}" IsEnabled="{Binding ElementName=chkbUseSelectedIP, Path=IsChecked}" SelectedItem="{Binding Model.LocalIP}" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,2" Width="129" />
+                            <CheckBox Name="chkbUseSelectedIP" Content="Use selected IP" IsChecked="{Binding UseFixIP}" Grid.Column="1" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" Margin="0,5" />
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Log" Height="20" VerticalAlignment="Top">
+                <TabItem.Resources>
+                    <Style TargetType="ItemsControl" x:Key="LogViewerStyle">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <ScrollViewer CanContentScroll="True">
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Setter Property="ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel IsItemsHost="True"/>
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <DataTemplate DataType="{x:Type Model:LogEntry}">
+                        <Grid IsSharedSizeScope="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="Index" Width="Auto"/>
+                                <ColumnDefinition SharedSizeGroup="Date" Width="Auto"/>
+                                <!--<ColumnDefinition SharedSizeGroup="LogLevel" MinWidth ="50" Width="Auto"/>-->
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Index}" Grid.Column="0"
+                       FontWeight="Bold" Margin="0,0,2,0" />
+                            <TextBlock Text="{Binding DateTime}" Grid.Column="1"
+                       FontWeight="Bold" Margin="5,0,5,0"/>
+                            <!--<TextBlock Text="{Binding LogLevel}" Grid.Column="2"
+                       TextWrapping="Wrap" Margin="5,0,5,0"/>-->
+                            <TextBlock Text="{Binding Message}" Grid.Column="2"
+                       TextWrapping="Wrap"/>
+                        </Grid>
+                    </DataTemplate>
+                </TabItem.Resources>
+                <DockPanel>
+                    <TextBlock Text="{Binding Model.LogEntries.Count, StringFormat='{}{0} Items'}"
+               DockPanel.Dock="Top"/>
+
+                    <ItemsControl ItemsSource="{Binding Model.LogEntries}" Style="{StaticResource LogViewerStyle}">
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <ScrollViewer CanContentScroll="True">
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel IsItemsHost="True"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+
+
+</Window>
+    

@@ -1,0 +1,2225 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Bing.Speech</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Bing.Speech.BondSerializer">
+            <summary>
+            Bond object [de]serialization, cloning, comparison utility class
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BondSerializer.Clone``1(``0)">
+            <summary>
+            Clones the source object
+            </summary>
+            <typeparam name="T">the type to clone</typeparam>
+            <param name="source">The source.</param>
+            <returns>a deeply cloned instance</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BondSerializer.Clone``2(``1)">
+            <summary>
+            Clone the source object into a schema compatible object of type T.
+            </summary>
+            <remarks>You cannot clone a derived class from a base class.  It is not meant to work.</remarks>
+            <typeparam name="T">the type to clone</typeparam>
+            <typeparam name="TSource">The type of the source.</typeparam>
+            <param name="source">The source.</param>
+            <returns>
+            an instance of T by cloning appropriate fields of the TSource object.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BondSerializer.Compare``1(``0,``0)">
+            <summary>
+            Compares the source and target.
+            </summary>
+            <typeparam name="T">the type to clone</typeparam>
+            <param name="source">The source.</param>
+            <param name="target">The target.</param>
+            <returns>
+            a boolean
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BondSerializer.Deserialize``1(System.Byte[],System.Boolean)">
+            <summary>
+            Deserializes a serialized Bond object
+            </summary>
+            <typeparam name="T">type to serialize into</typeparam>
+            <param name="data">serialized object</param>
+            <param name="unmarshal">if set to <c>true</c> [marshal].</param>
+            <returns>
+            deserialized object
+            </returns>
+            <exception cref="T:System.ArgumentNullException">data</exception>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BondSerializer.Deserialize``1(System.ArraySegment{System.Byte},System.Boolean)">
+            <summary>
+            Deserializes a serialized Bond object
+            </summary>
+            <typeparam name="T">type to serialize into</typeparam>
+            <param name="segment">segment containing the object</param>
+            <param name="unmarshal">if set to true, unmarshal instead of assuming a CompactBinaryReader.</param>
+            <returns>
+            deserialized object
+            </returns>
+            <exception cref="T:System.ArgumentNullException">segment</exception>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BondSerializer.Deserialize``1(System.IO.Stream,System.Boolean)">
+            <summary>
+            Deserializes a serialized Bond object
+            </summary>
+            <typeparam name="T">type to serialize into</typeparam>
+            <param name="stream">the stream to read from</param>
+            <param name="unmarshal">if set to true, unmarshal instead of assuming a CompactBinaryReader.</param>
+            <returns>
+            deserialized object
+            </returns>
+            <exception cref="T:System.ArgumentNullException">stream</exception>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BondSerializer.Serialize``1(``0,System.Boolean,System.Int32)">
+            <summary>
+            Serializes a Bond object into an ArraySegment
+            </summary>
+            <typeparam name="T">type to serialize out of</typeparam>
+            <param name="obj">object that should eb serialized</param>
+            <param name="marshal">if set to true, marshal.</param>
+            <param name="initialBufferSizeHint">The initial buffer size hint.</param>
+            <returns>
+            ArraySegment containing serialized object
+            </returns>
+            <exception cref="T:System.ArgumentNullException">obj</exception>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BondSerializer.Serialize``1(``0,System.IO.Stream,System.Boolean)">
+            <summary>
+            Serializes a Bond object to an existing stream.  The stream must be seekable
+            </summary>
+            <typeparam name="T">type to serialize out of</typeparam>
+            <param name="obj">object that should be serialized</param>
+            <param name="stream">The stream to serialize to.</param>
+            <param name="marshal">if set to true, marshal.</param>
+            <exception cref="T:System.ArgumentNullException">
+            obj
+            or
+            stream
+            </exception>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BondSerializer.SerializeToBytes``1(``0,System.Boolean,System.Int32)">
+            <summary>
+            Serializes a Bond object into a byte array.  You should favor the overload that returns an ArraySegment to avoid an unnecessary array allocation and copy.
+            ArraySegment supports many interfaces such as IList.  Casting to and using those interfaces is a better approach than copying the bits to a byte array.
+            </summary>
+            <typeparam name="T">type to serialize out of</typeparam>
+            <param name="obj">object that should eb serialized</param>
+            <param name="marshal">if set to true, marshal.</param>
+            <param name="initialBufferSizeHint">The initial buffer size hint.</param>
+            <returns>
+            ArraySegment containing serialized object
+            </returns>
+            <exception cref="T:System.ArgumentNullException">obj</exception>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.Source">
+            <summary>
+            The reader source
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.Source.Main">
+            <summary>
+            The main source
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.Source.Buffer">
+            <summary>
+            The buffered source
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.BufferingBehaviour">
+            <summary>
+            The buffering behaviour
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.BufferingBehaviour.Complete">
+            <summary>
+            Write all data read from the main stream to the buffer
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.BufferingBehaviour.KeepOnlyLatest">
+            <summary>
+            Only keep the latest read chunk in the buffer
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.AudioReader">
+            <summary>
+            Audio Reader class
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioReader.BufferPool">
+            <summary>
+            The buffer pool used for circular buffers
+            This pool is intended to live the entire process life time. Each circular buffer will get a new buffer from the pool
+            and then return it back.
+            Default size is set to 2 MB which is around 60 seconds worth of 32 KB/s PCM audio
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioReader.EmptyBytes">
+            <summary>
+            The empty bytes
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioReader.mainStream">
+            <summary>
+            The main stream
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioReader.circularBuffer">
+            <summary>
+            The circular buffer
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioReader.audioFormat">
+            <summary>
+            The audio format
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioReader.chunk">
+            <summary>
+            The chunk array
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioReader.headersChunk">
+            <summary>
+            The headers chunk
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioReader.operationsCancellation">
+            <summary>
+            Cancellation token that gets cancelled when the reader is disposed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioReader.behaviour">
+            <summary>
+            The behavior
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioReader.rewindPoint">
+            <summary>
+            The rewind point
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioReader.streamBytesRead">
+            <summary>
+            The number of bytes read from the stream relative to it's start
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioReader.disposed">
+            <summary>
+            The disposed
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioReader.firstRead">
+            <summary>
+            The first read
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.AudioReader.#ctor(System.IO.Stream,Microsoft.Bing.Speech.IAudioContainerDetector,Microsoft.Bing.Speech.BufferingBehaviour)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.AudioReader" /> class.
+            </summary>
+            <param name="main">The main.</param>
+            <param name="audioContainerDetector">The audio container detector.</param>
+            <param name="bufferingBehaviour">The buffering behaviour.</param>
+            <exception cref="T:System.IO.InvalidDataException">Audio format could not be parsed.</exception>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.AudioReader.Headers">
+            <summary>
+            Gets the headers.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.AudioReader.ResetToRewindPoint">
+            <summary>
+            Resets the read pointer to the rewind point.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.AudioReader.ReadNextAsync(Microsoft.Bing.Speech.Source,System.Threading.CancellationToken)">
+            <summary>
+            Reads the next chunk of audio from the requested source.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="token">The token.</param>
+            <returns>
+            An async task
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.AudioReader.GetMediaTimeOffset(Microsoft.Bing.Speech.Source)">
+            <summary>
+            Gets the media time off set.
+            </summary>
+            <param name="source">The source.</param>
+            <returns>Source media time offset</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.AudioReader.GetChunkLength(System.Int32)">
+            <summary>
+            Gets the length of the chunk.
+            </summary>
+            <param name="bytes">The bytes.</param>
+            <returns>Time span</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.AudioReader.AdvanceRewindPoint(System.TimeSpan)">
+            <summary>
+            Advances the rewind point by seconds amount
+            </summary>
+            <param name="time">The time.</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.AudioReader.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.AudioReader.ThrowIfDisposed">
+            <summary>
+            Throws if disposed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.AudioReader.UpdateBuffer">
+            <summary>
+            Updates the buffer.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.BufferPool">
+            <summary>
+            Buffer Pool for allocating reusable buffers
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.BufferPool.DefaultMaxBuffers">
+            <summary>
+            Default maxmimum number of buffers held by the pool
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.BufferPool.bufferSize">
+            <summary>
+            The buffer size
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.BufferPool.maxBuffers">
+            <summary>
+            The maximum buffers
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.BufferPool.pool">
+            <summary>
+            The pool
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.BufferPool.busyBuffers">
+            <summary>
+            The busy buffers
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BufferPool.#ctor(System.UInt32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.BufferPool"/> class.
+            </summary>
+            <param name="bufferSize">Size of the buffer.</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BufferPool.#ctor(System.UInt32,System.UInt32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.BufferPool" /> class.
+            </summary>
+            <param name="bufferSize">Size of the buffer.</param>
+            <param name="maxBuffers">The maximum buffers.</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BufferPool.GetBuffer">
+            <summary>
+            Gets a buffer.
+            </summary>
+            <returns>A buffer</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BufferPool.Dispose">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BufferPool.PutBuffer(Microsoft.Bing.Speech.IBuffer)">
+            <summary>
+            Puts the buffer.
+            </summary>
+            <param name="buffer">The buffer.</param>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.BufferPool.Buffer">
+            <summary>
+            Disposable buffer class
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.BufferPool.Buffer.pool">
+            <summary>
+            The pool
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BufferPool.Buffer.#ctor(System.Byte[],Microsoft.Bing.Speech.BufferPool)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.BufferPool.Buffer" /> class.
+            </summary>
+            <param name="array">The array.</param>
+            <param name="bufferPool">The buffer pool.</param>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.BufferPool.Buffer.Array">
+            <summary>
+            Gets the array.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.BufferPool.Buffer.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.CircularBuffer">
+            <summary>
+            Circular buffer
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.CircularBuffer.overwritable">
+            <summary>
+            Indicates whether the buffer is overwritable or not
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.CircularBuffer.circularBuffer">
+            <summary>
+            The circular buffer
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.CircularBuffer.#ctor(Microsoft.Bing.Speech.BufferPool,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.CircularBuffer" /> class.
+            </summary>
+            <param name="bufferPool">The buffer pool.</param>
+            <param name="overwritable">if set to <c>true</c> the buffer will overwrite bytes even if they are not read. Else it will throw an exception on the read.</param>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.CircularBuffer.ReadIndex">
+            <summary>
+            The read index
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.CircularBuffer.WriteIndex">
+            <summary>
+            The write index
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.CircularBuffer.Capacity">
+            <summary>
+            Gets the Capacity.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.CircularBuffer.Count">
+            <summary>
+            Gets the count.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.CircularBuffer.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Reads a sequence of bytes from the current buffer and advances the position within the buffer by the number of bytes read.
+            </summary>
+            <param name="buffer">An array of bytes. When this method returns, the buffer contains the specified byte array with the values between <paramref name="offset" /> and (<paramref name="offset" /> + <paramref name="count" /> - 1) replaced by the bytes read from the current source.</param>
+            <param name="offset">The zero-based byte offset in <paramref name="buffer" /> at which to begin storing the data read from the current buffer.</param>
+            <param name="count">The maximum number of bytes to be read from the current buffer.</param>
+            <returns>
+            The total number of bytes read into the buffer. This can be less than the number of bytes requested if that many bytes are not currently available, or zero (0) if the end of the buffer has been reached.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.CircularBuffer.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes a sequence of bytes to the current buffer and advances the current position within this buffer by the number of bytes written.
+            </summary>
+            <param name="buffer">An array of bytes. This method copies <paramref name="count" /> bytes from <paramref name="buffer" /> to the current buffer.</param>
+            <param name="offset">The zero-based byte offset in <paramref name="buffer" /> at which to begin copying bytes to the current buffer.</param>
+            <param name="count">The number of bytes to be written to the current buffer.</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.CircularBuffer.Clear">
+            <summary>
+            Clears the buffer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.CircularBuffer.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.IBuffer">
+            <summary>
+            IBuffer interface
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Microsoft.Bing.Speech.IBuffer.Array">
+            <summary>
+            Gets the array.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.SpeechInput">
+            <summary>
+            Speech service input parameters.
+            </summary>
+            <example>
+            <code>
+            var deviceMetadata = new DeviceMetadata(DeviceType.Near, DeviceFamily.Desktop, NetworkType.Ethernet, OsName.Windows, "1607", "Dell", "T3600");
+            var applicationMetadata = new ApplicationMetadata("SampleApp", "1.0.0");
+            var requestMetadata = new RequestMetadata(Guid.NewGuid(), deviceMetadata, applicationMetadata, "SampleService");
+            var speechInput = new SpeechInput(File.OpenRead("audio.wav"), requestMetadata);
+            </code>
+            </example>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechInput.#ctor(System.IO.Stream,Microsoft.Bing.Speech.RequestMetadata)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.SpeechInput"/> class.
+            </summary>
+            <param name="audio">The audio stream.</param>
+            <param name="requestMetadata">The request metadata.</param>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.SpeechInput.Audio">
+            <summary>
+            Gets the audio stream.
+            </summary>
+            <remarks>
+            This could be any <see cref="T:System.IO.Stream"/> implementation that supports reading. For real-time streaming scenarios, make sure the stream support concurrent read/write. 
+            <para/>
+            The API supports the following WAV codecs: 
+            <list type="bullet">
+                <item>
+                    <description>PCM single channel.</description>
+                </item>
+                <item>
+                    <description>Siren.</description>
+                </item>
+                <item>
+                    <description>SirenSR.</description>
+                </item>
+            </list>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.SpeechInput.RequestMetadata">
+            <summary>
+            Gets the metadata about the speech request.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.ActionDictionary">
+            <summary>
+            A class to store all the callback actions
+            </summary>
+            <remarks>This class a thread safe class.</remarks>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ActionDictionary.Set``1(System.Func{``0,System.Threading.Tasks.Task})">
+            <summary>
+            Sets the specified action.
+            </summary>
+            <typeparam name="T">type to send in the callback</typeparam>
+            <param name="action">action to invoke</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ActionDictionary.Get``1">
+            <summary>
+            Gets the delegate
+            </summary>
+            <typeparam name="T">the type</typeparam>
+            <returns>the action</returns>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.IAuthorizationProvider">
+            <summary>
+            Interface that provides authorization for requests to the Microsoft Speech Service. Service peers are required to provide an implementation of this class to make connections to the Speech Service.
+            </summary>
+            <example>
+            This is a sample implementation that uses <see href="https://www.microsoft.com/cognitive-services">Cognitive Services</see> authorization.
+            <para/> For more information, refer to the <see href="https://dev.cognitive.microsoft.com/docs/services/57346a70b4769d2694911369/operations/57346edcb5816c23e4bf7421">Token API V1.0</see>
+            <code>
+            /// &lt;summary&gt;
+            /// Cognitive Services Authorization Provider.
+            /// &lt;/summary&gt;
+            public sealed class CognitiveServicesAuthorizationProvider : IAuthorizationProvider
+            {
+                /// &lt;summary&gt;
+                /// The fetch token URI
+                /// &lt;/summary&gt;
+                private const string FetchTokenUri = "https://api.cognitive.microsoft.com/sts/v1.0";
+            
+                /// &lt;summary&gt;
+                /// The subscription key
+                /// &lt;/summary&gt;
+                private readonly string subscriptionKey;
+            
+                /// &lt;summary&gt;
+                /// Initializes a new instance of the &lt;see cref="CognitiveServicesAuthorizationProvider" /&gt; class.
+                /// &lt;/summary&gt;
+                /// &lt;param name="subscriptionKey"&gt;The subscription identifier.&lt;/param&gt;
+                public CognitiveServicesAuthorizationProvider(string subscriptionKey)
+                {
+                    if (subscriptionKey == null)
+                    {
+                        throw new ArgumentNullException(nameof(subscriptionKey));
+                    }
+            
+                    if (string.IsNullOrWhiteSpace(subscriptionKey))
+                    {
+                        throw new ArgumentException(nameof(subscriptionKey));
+                    }
+            
+                    this.subscriptionKey = subscriptionKey;
+                }
+            
+                /// &lt;summary&gt;
+                /// Gets the authorization token asynchronously.
+                /// &lt;/summary&gt;
+                /// &lt;returns&gt;
+                /// A task that represents the asynchronous read operation. The value of the string parameter contains the next the authorization token.
+                /// &lt;/returns&gt;
+                /// &lt;remarks&gt;
+                /// This method should always return a valid authorization token at the time it is called.
+                /// &lt;/remarks&gt;
+                public Task&lt;string&gt; GetAuthorizationTokenAsync()
+                {
+                    // Use token caching instead of returning a new token every time this is called.
+                    return FetchToken(FetchTokenUri, this.subscriptionKey);
+                }
+            
+                /// &lt;summary&gt;
+                /// Fetches the token.
+                /// &lt;/summary&gt;
+                /// &lt;param name="fetchUri"&gt;The fetch URI.&lt;/param&gt;
+                /// &lt;param name="subscriptionKey"&gt;The subscription key.&lt;/param&gt;
+                /// &lt;returns&gt;An access token.&lt;/returns&gt;
+                private static async Task&lt;string&gt; FetchToken(string fetchUri, string subscriptionKey)
+                {
+                    using (var client = new HttpClient())
+                    {
+                        client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+                        var uriBuilder = new UriBuilder(fetchUri);
+                        uriBuilder.Path += "/issueToken";
+            
+                        using (var result = await client.PostAsync(uriBuilder.Uri.AbsoluteUri, null).ConfigureAwait(false))
+                        {
+                            return await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        }
+                    }
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.IAuthorizationProvider.GetAuthorizationTokenAsync">
+            <summary>
+            Gets the authorization token asynchronously.
+            </summary>
+            <returns>A task that represents the asynchronous read operation. The value of the string parameter contains the authorization token.</returns>
+            <exception cref="T:System.UnauthorizedAccessException">If the authorization fails.</exception>
+            <remarks>This method should always return a valid authorization token when it is called.</remarks>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.ClientException">
+            <summary>
+            Exception thrown when an error occurs in client code.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ClientException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.ClientException"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ClientException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.ClientException" /> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ClientException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.ClientException" /> class.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.ServerException">
+            <summary>
+            Exception thrown by the speech service during execution of a request.
+            </summary>
+            <seealso cref="T:System.Exception" />
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ServerException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.ServerException"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ServerException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.ServerException" /> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ServerException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.ServerException" /> class.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.ResponseStatusExtensions">
+            <summary>
+            Request Status Extensions
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ResponseStatusExtensions.IsClientError(Microsoft.Bing.Speech.ResponseStatus)">
+            <summary>
+            Determines whether [is client error].
+            </summary>
+            <param name="status">The status.</param>
+            <returns>True if it is a client error.</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ResponseStatusExtensions.IsServerError(Microsoft.Bing.Speech.ResponseStatus)">
+            <summary>
+            Determines whether [is server error].
+            </summary>
+            <param name="status">The status.</param>
+            <returns>True if it is a server error.</returns>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.AudioContainerDetector">
+            <summary>
+            Class for detecting the audio container format e.g. RIFF
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioContainerDetector.ContainerDetectionLength">
+            <summary>
+            Number of bytes needed to detect container type
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioContainerDetector.audioContainers">
+            <summary>
+            The riff audio container
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.AudioContainerDetector.buffer">
+            <summary>
+            Most headers will fit into SirenSR size - so we'll use that as a starting point for buffer size
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.AudioContainerDetector.#ctor(Microsoft.Bing.Speech.IAudioContainer[])">
+            <summary>
+            Initialize new instance of the AudioContainerDetection
+            </summary>
+            <param name="audioContainers">audio containers</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.AudioContainerDetector.TryParseAudioFormat(System.Byte[],Microsoft.Bing.Speech.AudioFormat@)">
+            <summary>
+            Try to parse the audio format
+            </summary>
+            <param name="audioBuffer">audio buffer from SR client</param>
+            <param name="audioFormat">the audio format</param>
+            <returns>true if parsed</returns>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.AudioFormat">
+            <summary>
+            Audio format class
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.AudioFormat.AverageBytesPerSecond">
+            <summary>
+            Gets or sets the average bytes per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.AudioFormat.BitsPerSample">
+            <summary>
+            Gets or sets the bits per sample.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.AudioFormat.BlockAlign">
+            <summary>
+            Gets or sets the block align.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.AudioFormat.SamplesPerSecond">
+            <summary>
+            Gets or sets the samples per second.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.AudioFormat.ChannelCount">
+            <summary>
+            Gets or sets the channel count.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.AudioFormat.EncodingFormat">
+            <summary>
+            Gets or sets the encoding format.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.AudioFormat.Extra">
+            <summary>
+            Gets or sets the extra.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.AudioFormat.HeaderSize">
+            <summary>
+            Gets or sets the size of the header.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.IAudioContainer">
+            <summary>
+            Interface to detect an audio container type
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.IAudioContainer.TryParseHeader(System.Byte[],Microsoft.Bing.Speech.AudioFormat@)">
+            <summary>
+            Attempts to parse a header
+            </summary>
+            <param name="buffer">audio buffer</param>
+            <param name="audioFormat">audio format</param>
+            <returns>true if header was parsed</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.IAudioContainer.IsContainerType(System.Byte[])">
+            <summary>
+            Checks to see if buffer matches the container type
+            </summary>
+            <param name="buffer">audio buffer</param>
+            <returns>true if it is the container type</returns>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.IAudioContainerDetector">
+            <summary>
+            AudioContainerDetector - Class to auto-detect RIFF header from audio buffer/stream
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.IAudioContainerDetector.TryParseAudioFormat(System.Byte[],Microsoft.Bing.Speech.AudioFormat@)">
+            <summary>
+            Try to parse the audio format
+            </summary>
+            <param name="audioBuffer">audio buffer from SR client</param>
+            <param name="audioFormat">the audio format</param>
+            <returns>true if parsed</returns>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.RiffAudioContainer">
+            <summary>
+            Class for detecting RIFF header from audio buffer/stream
+            <see href="http://soundfile.sapp.org/doc/WaveFormat/">WAVE PCM sound file format</see>
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RiffAudioContainer.Rifflabel">
+            <summary>
+            RIFF Label
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RiffAudioContainer.Wavelabel">
+            <summary>
+            WAVE label
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RiffAudioContainer.Datalabelsize">
+            <summary>
+            Size of the data label
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RiffAudioContainer.Fourbytes">
+            <summary>
+            Four bytes
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RiffAudioContainer.Twobytes">
+            <summary>
+            Two bytes
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RiffAudioContainer.Datachunksize">
+            <summary>
+            Size of the chunk determining data chunk size
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RiffAudioContainer.Maxheaderlimit">
+            <summary>
+            If we have a Riff header and have already read over 5000 bytes and we still don't have a data tag
+            we're going to assume something is wrong with the audio being streamed to us and throw an exception
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RiffAudioContainer.encoding">
+            <summary>
+            Set the encoding to read the byte array
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.RiffAudioContainer.TryParseHeader(System.Byte[],Microsoft.Bing.Speech.AudioFormat@)">
+            <summary>
+            Attempts to parse a header
+            </summary>
+            <param name="buffer">audio buffer</param>
+            <param name="audioFormat">audio format</param>
+            <returns>true if header was parsed</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.RiffAudioContainer.IsContainerType(System.Byte[])">
+            <summary>
+            Checks to see if buffer matches the container type
+            </summary>
+            <param name="buffer">audio buffer</param>
+            <returns>true if it is the container type</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.RiffAudioContainer.ReadInt32(System.Byte[],System.Int32@)">
+            <summary>
+            Read a 4-byte little endian number from the header
+            </summary>
+            <param name="buffer">the audio buffer</param>
+            <param name="position">the position of the size bytes</param>
+            <returns>an integer</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.RiffAudioContainer.ReadInt16(System.Byte[],System.Int32@)">
+            <summary>
+            Read two byte integer
+            </summary>
+            <param name="buffer">the audio buffer</param>
+            <param name="position">the position of the integer</param>
+            <returns>an integer representing the bytes</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.RiffAudioContainer.ReadDataLabel(System.Byte[],System.Int32@)">
+            <summary>
+            This reads a data label
+            </summary>
+            <param name="buffer">audio buffer</param>
+            <param name="position">the position in the buffer to check</param>
+            <returns>a string data label</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.RiffAudioContainer.ParseFormatChunk(System.Byte[],Microsoft.Bing.Speech.AudioFormat,System.Int32@,System.Int32)">
+            <summary>
+            Parse format chunk
+            </summary>
+            <param name="buffer">audio buffer</param>
+            <param name="audioFormat">the audio format</param>
+            <param name="position">buffer position</param>
+            <param name="blockSize">the block size of the format chunk</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.RiffAudioContainer.ReadChunks(System.Byte[],Microsoft.Bing.Speech.AudioFormat)">
+            <summary>
+            Process the next data block
+            </summary>
+            <param name="buffer">audio buffer</param>
+            <param name="audioFormat">audio format</param>
+            <returns> true if there are more blocks to process</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.RiffAudioContainer.ReadChunk(System.Byte[],Microsoft.Bing.Speech.AudioFormat,System.Int32@,System.Boolean@)">
+            <summary>
+            Reads a riff chunk
+            </summary>
+            <param name="buffer">audio buffer</param>
+            <param name="audioFormat">the audio format</param>
+            <param name="position">buffer position</param>
+            <param name="complete">true if data chunk reached</param>
+            <returns>true if the riff chunk was read</returns>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.ApplicationMetadata">
+            <summary>
+            Metadata about the end-user application or process with which the speaker is interacting. This metadata is used by the Microsoft Speech Service to help improve the quality of service for the user.
+            </summary>
+            <example>
+            <code>
+            var applicationMetadata = new ApplicationMetadata("SampleApp", "1.0.0");
+            </code>
+            </example>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ApplicationMetadata.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.ApplicationMetadata"/> class.
+            </summary>
+            <param name="name">The name of the end-user application.</param>
+            <param name="version">The version of the end-user application.</param>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.ApplicationMetadata.Name">
+            <summary>
+            Gets the end-user application name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.ApplicationMetadata.Version">
+            <summary>
+            Gets the end-user application version.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.OsName">
+            <summary>
+            Operating system enumeration.
+            </summary>
+            <remarks>Identifies the end-user OS host.</remarks>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.OsName.Unknown">
+            <summary>
+            Unknown OS.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.OsName.Android">
+            <summary>
+            Android OS.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.OsName.IOS">
+            <summary>
+            iOS.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.OsName.Windows">
+            <summary>
+            Windows OS.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.OsName.WindowsMobile">
+            <summary>
+            Windows Mobile OS.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.OsName.Linux">
+            <summary>
+            Linux OS.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.NetworkType">
+            <summary>
+            Network type enumeration.
+            </summary>
+            <remarks>Identifies the end-user network type.</remarks>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.NetworkType.Unknown">
+            <summary>
+            Unknown network type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.NetworkType.Wifi">
+            <summary>
+            Wi-Fi.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.NetworkType.Ethernet">
+            <summary>
+            Ethernet.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.NetworkType.CellGPRS">
+            <summary>
+            GPRS.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.NetworkType.CellEdge">
+            <summary>
+            Edge.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.NetworkType.CellWCDMA">
+            <summary>
+            WCDMA.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.NetworkType.CellHSDPA">
+            <summary>
+            HSDPA.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.NetworkType.CellHSUPA">
+            <summary>
+            HSUPA.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.NetworkType.Cell1xRTT">
+            <summary>
+            1xRTT.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.NetworkType.CellEVDO0">
+            <summary>
+            EvdO0.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.NetworkType.CellEVDOA">
+            <summary>
+            EVDOA
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.NetworkType.CellEVDOB">
+            <summary>
+            EVDOB.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.NetworkType.CellEHRPD">
+            <summary>
+            EHRPD.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.NetworkType.CellLTE">
+            <summary>
+            LTE.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.DeviceType">
+            <summary>
+            Device type enumeration.
+            </summary>
+            <remarks>Identifies the end-user device type.</remarks>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.DeviceType.Near">
+            <summary>
+            Near Devices such as phones.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.DeviceType.Far">
+            <summary>
+            Far Devices such as Kinect.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.DeviceFamily">
+            <summary>
+            Device family enumeration.
+            </summary>
+            <remarks>Identifies the end-user device family.</remarks>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.DeviceFamily.Unknown">
+            <summary>
+            Device not known.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.DeviceFamily.Desktop">
+            <summary>
+            Desktop devices.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.DeviceFamily.Laptop">
+            <summary>
+            Laptop devices with keyboard as primary input.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.DeviceFamily.Tablet">
+            <summary>
+            Devices with touch screen as primary input.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.DeviceFamily.Mobile">
+            <summary>
+            Mobile devices (phones, phablets).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.DeviceFamily.HolographicOrVR">
+            <summary>
+            Head-mounted, speech-oriented input devices.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.DeviceFamily.Xbox">
+            <summary>
+            Xbox devices.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.DeviceFamily.Whiteboard">
+            <summary>
+            White board devices such as Surface Hub.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.DeviceFamily.Automotive">
+            <summary>
+            Automotive specific devices.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.DeviceFamily.IotDevice">
+            <summary>
+            IoT devices.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.DeviceMetadata">
+            <summary>
+            Metadata about the end-user device that is collecting audio. This metadata is used by the Microsoft Speech Service to help improve the quality of service for the user.
+            </summary>
+            <example>
+            <code>
+            var deviceMetadata = new DeviceMetadata(DeviceType.Near, DeviceFamily.Desktop, NetworkType.Ethernet, OsName.Windows, "1607", "Dell", "T3600");
+            </code>
+            </example>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.DeviceMetadata.#ctor(Microsoft.Bing.Speech.DeviceType,Microsoft.Bing.Speech.DeviceFamily,Microsoft.Bing.Speech.NetworkType,Microsoft.Bing.Speech.OsName,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.DeviceMetadata" /> class.
+            </summary>
+            <param name="type">The end-user device type.</param>
+            <param name="family">The end-user device family.</param>
+            <param name="networkType">The end-user device network type.</param>
+            <param name="osName">The end-user device operating system name.</param>
+            <param name="osVersion">The end-user device operating system version.</param>
+            <param name="make">The end-user device make.</param>
+            <param name="model">The end-user device model.</param>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.DeviceMetadata.Type">
+            <summary>
+            Gets the end-user device type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.DeviceMetadata.Family">
+            <summary>
+            Gets the end-user device family.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.DeviceMetadata.OsName">
+            <summary>
+            Gets the end-user device operating system name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.DeviceMetadata.OsVersion">
+            <summary>
+            Gets the end-user device operating system version.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.DeviceMetadata.Make">
+            <summary>
+            Gets the end-user device make.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.DeviceMetadata.Model">
+            <summary>
+            Gets the end-user device model.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.DeviceMetadata.NetworkType">
+            <summary>
+            Gets the end-user device network type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.RequestMetadata">
+            <summary>
+            Metadata about the speech request.
+            </summary>
+            <example>
+              <code>
+            var deviceMetadata = new DeviceMetadata(DeviceType.Near, DeviceFamily.Desktop, NetworkType.Ethernet, OsName.Windows, "1607", "Dell", "T3600");
+            var applicationMetadata = new ApplicationMetadata("SampleApp", "1.0.0");
+            var requestMetadata = new RequestMetadata(Guid.NewGuid(), deviceMetadata, applicationMetadata, "SampleService");
+            </code>
+            </example>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.RequestMetadata.#ctor(System.Guid,Microsoft.Bing.Speech.DeviceMetadata,Microsoft.Bing.Speech.ApplicationMetadata,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.RequestMetadata" /> class.
+            </summary>
+            <param name="requestIdentifier">The request unique identifier.</param>
+            <param name="deviceMetadata">The device metadata.</param>
+            <param name="applicationMetadata">The application metadata.</param>
+            <param name="serviceName">The name that uniquely identifies the caller service.</param>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.RequestMetadata.Identifier">
+            <summary>
+            Gets the identifier that uniquely identifies a request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.RequestMetadata.DeviceMetadata">
+            <summary>
+            Gets the metadata about the end-user device.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.RequestMetadata.ApplicationMetadata">
+            <summary>
+            Gets the metadata about the end-user application.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.RequestMetadata.ServiceName">
+            <summary>
+            Gets the name that uniquely identifies the caller service.
+            </summary>
+            <remarks>
+            If the API is used directly by an end-user application, the ServiceName is the same as the Name under <see cref="T:Microsoft.Bing.Speech.ApplicationMetadata"/>. 
+            In cases where the API is used via a proxy service, the ServiceName is the name of the proxy service. 
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.RequestMetadata.ImpressionId">
+            <summary>
+            Gets or sets the impression identifier.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.Constants">
+            <summary>
+            Constants class
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.Constants.ImpressionGuidHeaderName">
+            <summary>
+            The impression unique identifier header name
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.Constants.LocaleHeaderName">
+            <summary>
+            The locale header name
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.Constants.SearchImpressionHeaderName">
+            <summary>
+            The search impression header name
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.Constants.UserAgentHeaderName">
+            <summary>
+            The user agent header name
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.Constants.ConversationIdHeaderName">
+            <summary>
+            The conversation unique identifier
+            </summary>
+            <remarks>
+            Used to identify requests that belong to the same session in a case of a disconnect.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.Constants.EmptyBody">
+            <summary>
+            The empty body
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.Constants.ClientVersionHeader">
+            <summary>
+            The client version header
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.Constants.LogLevelHeader">
+            <summary>
+            The log level header
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.ClientContext">
+            <summary>
+            InstrumentationInfo contains information that client will send to service for
+            the purpose of instrumentation logging and request configuration.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ClientContext.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.ClientContext" /> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.ClientContext.Groups">
+            <summary>
+            Gets or sets a value indicating the group of properties that contains: LocalProperties, LocalProperties, and RecoProperties.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ClientContext.CovertToJason">
+            <summary>
+            A method to convert an instance of this class to a Jason string
+            </summary>
+            <returns>
+            a Jason string
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ClientContext.CovertFromJason(System.String)">
+            <summary>
+            Convert from Jason. For debugging only
+            </summary>
+            <param name="jsonString">jason string used to de-serialize to an object.</param>
+            <returns>
+            an instance of ClientContext.
+            </returns>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.ClientInfo">
+            <summary>
+            Class containing client custom parameters. For logging only.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ClientInfo.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.ClientInfo" /> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.ClientInfo.Id">
+            <summary>
+            Gets a value indicating the id used for RecoProperties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.ClientInfo.Info">
+            <summary>
+            Gets the information.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.Groups">
+            <summary>
+            The groups
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.Groups.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.Groups" /> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.Groups.LocalProperties">
+            <summary>
+            Gets or sets a value indicating the LocalProperties group of properties.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.LocalProperties">
+            <summary>
+            Local properties
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.LocalProperties.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.LocalProperties" /> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.LocalProperties.Id">
+            <summary>
+            Gets a value indicating whether response types lattice information is requested for.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.LocalProperties.Info">
+            <summary>
+            Gets or sets a value indicating whether response types lattice information is requested for.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.LocalProperties.LocalPropertiesInfo">
+            <summary>
+            Info wrapper.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.LocalProperties.LocalPropertiesInfo.NetworkType">
+            <summary>
+            Gets or sets the network type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.ConnectionProperties">
+            <summary>
+            Connection properties implementation
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.ConnectionProperties.BasicMessageHeaders">
+            <summary>
+            The basic message headers
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.ConnectionProperties.BasicConnectionHeaders">
+            <summary>
+            The basic connections headers
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.ConnectionProperties.Preferences">
+            <summary>
+            The preferences
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ConnectionProperties.#ctor(Microsoft.Bing.Speech.Preferences)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.ConnectionProperties" /> class.
+            </summary>
+            <param name="preferences">The preferences.</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ConnectionProperties.#ctor(Microsoft.Bing.Speech.Preferences,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.ConnectionProperties" /> class.
+            </summary>
+            <param name="preferences">The preferences.</param>
+            <param name="basicMessagingHeaders">The basic messaging headers.</param>
+            <param name="basicConnectionHeaders">The basic connection headers.</param>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.ConnectionProperties.ServiceUri">
+            <summary>
+            Gets the service URI.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ConnectionProperties.GetClientContext(Microsoft.Bing.Speech.RequestMetadata)">
+            <summary>
+            Gets the client context.
+            </summary>
+            <param name="requestMetadata">The request metadata.</param>
+            <returns>
+            The client context.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ConnectionProperties.CreateCookies(Microsoft.Bing.Speech.RequestMetadata)">
+            <summary>
+            Creates the cookies.
+            </summary>
+            <param name="requestMetadata">The request metadata.</param>
+            <returns>
+            Cookies container
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ConnectionProperties.CreateConnectionHeaders(Microsoft.Bing.Speech.RequestMetadata)">
+            <summary>
+            Creates the message headers.
+            </summary>
+            <param name="requestMetadata">The request metadata.</param>
+            <returns>Connection headers</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ConnectionProperties.CreateMessageHeaders(Microsoft.Bing.Speech.RequestMetadata)">
+            <summary>
+            Creates the message headers.
+            </summary>
+            <param name="requestMetadata">The request metadata.</param>
+            <returns>
+            Message headers
+            </returns>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.ConnectionPropertiesFactory">
+            <summary>
+                Connection properties factory
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ConnectionPropertiesFactory.Create(Microsoft.Bing.Speech.Preferences)">
+            <summary>
+                Creates connection properties based on the given preferences
+            </summary>
+            <param name="preferences">The preferences.</param>
+            <returns>Connection properties implementation</returns>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.IConnectionProperties">
+            <summary>
+            Connection properties interface
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.IConnectionProperties.ServiceUri">
+            <summary>
+            Gets the service URI.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.IConnectionProperties.GetClientContext(Microsoft.Bing.Speech.RequestMetadata)">
+            <summary>
+            Gets the client context.
+            </summary>
+            <param name="requestMetadata">The request metadata.</param>
+            <returns>The client context.</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.IConnectionProperties.CreateCookies(Microsoft.Bing.Speech.RequestMetadata)">
+            <summary>
+            Creates the cookies.
+            </summary>
+            <param name="requestMetadata">The request metadata.</param>
+            <returns>Cookies container</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.IConnectionProperties.CreateConnectionHeaders(Microsoft.Bing.Speech.RequestMetadata)">
+            <summary>
+            Creates the message headers.
+            </summary>
+            <param name="requestMetadata">The request metadata.</param>
+            <returns>
+            Connection headers
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.IConnectionProperties.CreateMessageHeaders(Microsoft.Bing.Speech.RequestMetadata)">
+            <summary>
+            Creates the message headers.
+            </summary>
+            <param name="requestMetadata">The request metadata.</param>
+            <returns>
+            Message headers
+            </returns>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.IConnectionPropertiesFactory">
+            <summary>
+            IConnectionPropertiesFactory interface
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.IConnectionPropertiesFactory.Create(Microsoft.Bing.Speech.Preferences)">
+            <summary>
+            Creates connection properties based on the given preferences
+            </summary>
+            <param name="preferences">The preferences.</param>
+            <returns>Connection properties implementation</returns>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.UserAgent">
+            <summary>
+            Encapsulate the UserAgent property of CUServiceParameters.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.UserAgent.clientOSName">
+            <summary>
+            The operating system name.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.UserAgent.clientOSVersion">
+            <summary>
+            The operating system version.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.UserAgent.clientProcessOrAppName">
+            <summary>
+            Name of client sending the request.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.UserAgent.clientProcessOrAppVersion">
+            <summary>
+            Version of client sending the request.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.UserAgent.deviceFamily">
+            <summary>
+            The device family (e.g. mobile, tablet).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.UserAgent.deviceType">
+            <summary>
+            The device type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.UserAgent.serviceFriendlyName">
+            <summary>
+            The service name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.UserAgent.#ctor(System.String,System.String,System.String,Microsoft.Bing.Speech.DeviceFamily,Microsoft.Bing.Speech.DeviceType,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.UserAgent" /> class.
+            </summary>
+            <param name="serviceFriendlyName">The service name.</param>
+            <param name="clientOSName">The operating system name.</param>
+            <param name="clientOSVersion">The operating system version.</param>
+            <param name="deviceFamily">The device family (e.g. mobile, tablet).</param>
+            <param name="deviceType">The device type.</param>
+            <param name="clientProcessOrAppName">Name of client sending the request.</param>
+            <param name="clientProcessOrAppVersion">Version of client sending the request.</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.UserAgent.FromMetadata(Microsoft.Bing.Speech.RequestMetadata)">
+            <summary>
+            Create a new instance of the <see cref="T:Microsoft.Bing.Speech.UserAgent" /> class use <see cref="T:Microsoft.Bing.Speech.RequestMetadata" /> class.
+            </summary>
+            <param name="requestMetadata">The request metadata.</param>
+            <returns>UserAgent instance.</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.UserAgent.ToString">
+            <summary>
+            Converts to string.
+            </summary>
+            <returns>
+            string representation of this class
+            </returns>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.ISpeechClient">
+            <summary>
+            An interface to perform speech recognition. 
+            </summary>
+            <remarks> Use this client to send audio (for example from a file or any audio source) to the speech service and receive the recognition results.</remarks>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ISpeechClient.RecognizeAsync(Microsoft.Bing.Speech.SpeechInput,System.Threading.CancellationToken)">
+            <summary>
+            Streams audio asynchronously to the speech service for recognition.
+            </summary>
+            <param name="speechInput">The speech service input parameters.</param>
+            <param name="token">The cancellation token used to cancel your request at any time, or to set a request time out.</param>
+            <returns>
+            A task that completes once the request completes. In ShortPhrase mode, the task completes after getting the <see cref="T:Microsoft.Bing.Speech.RecognitionResult"/>.
+            In LongDictation mode, the task completes after the final <see cref="T:Microsoft.Bing.Speech.RecognitionResult"/>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ISpeechClient.SubscribeTo``1(System.Func{``0,System.Threading.Tasks.Task})">
+            <summary>
+            Subscribes to a specific event to perform a given action.
+            </summary>
+            <typeparam name="T">Type of the subscription.</typeparam>
+            <param name="action">The action.</param>
+            <remarks>
+            Only the last action subscribed will be executed.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ISpeechClient.SubscribeToPartialResult(System.Func{Microsoft.Bing.Speech.RecognitionPartialResult,System.Threading.Tasks.Task})">
+            <summary>
+            Subscribes to partial speech results.
+            </summary>
+            <param name="action">The action.</param>
+            <remarks>Only the last action subscribed will be executed.</remarks>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ISpeechClient.SubscribeToRecognitionResult(System.Func{Microsoft.Bing.Speech.RecognitionResult,System.Threading.Tasks.Task})">
+            <summary>
+            Subscribes to speech recognition results.
+            </summary>
+            <param name="action">The action.</param>
+            <remarks>Only the last action subscribed will be executed.</remarks>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.Extensions">
+            <summary>
+            Extensions class
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.Extensions.AddParameter(System.Uri,System.String,System.String)">
+            <summary>
+            Adds the specified parameter to the Query String.
+            </summary>
+            <param name="url">The original url</param>
+            <param name="paramName">Name of the parameter to add.</param>
+            <param name="paramValue">Value for the parameter to add.</param>
+            <returns>Url with added parameter.</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.Extensions.SafeCloseAsync(Microsoft.Bing.Messaging.IMessagingComponent,System.Threading.CancellationToken)">
+            <summary>
+            Closes the connection safely without throwingexceptions
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="token">The token.</param>
+            <returns>
+            A Task
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.Extensions.SecondsToBytes(Microsoft.Bing.Speech.AudioFormat,System.Double)">
+            <summary>
+            Seconds to bytes.
+            </summary>
+            <param name="audioFormat">The audio format.</param>
+            <param name="seconds">The seconds.</param>
+            <returns>Number of bytes</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.Extensions.BytesToTime(Microsoft.Bing.Speech.AudioFormat,System.Int32)">
+            <summary>
+            Bytes to Time.
+            </summary>
+            <param name="audioFormat">The audio format.</param>
+            <param name="bytes">The bytes.</param>
+            <returns>Timespan representing time</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.Extensions.Add(System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.KeyValuePair{System.String,System.String})">
+            <summary>
+            Adds the specified entry.
+            </summary>
+            <param name="table">The table.</param>
+            <param name="entry">The entry.</param>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.Preferences">
+            <summary>
+            Parameters that configure the Microsoft Speech Service.
+            </summary>
+            <example>
+            <code>
+            var preferences = new Preferences(locale, serviceUrl, new AuthorizationProvider("******************"));
+            </code>
+            </example>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.Preferences.#ctor(System.String,System.Uri,Microsoft.Bing.Speech.IAuthorizationProvider,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.Preferences" /> class.
+            </summary>
+            <param name="speechLanguage">The speech language.</param>
+            <param name="serviceUri">The speech service URI.</param>
+            <param name="authorizationProvider">The authorization provider.</param>
+            <param name="enableAudioBuffering">If this property is set to <c>true</c> and a network interruption occurs, the SDK will resend the buffered audio starting from the last <see cref="T:Microsoft.Bing.Speech.RecognitionResult"/>.</param>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.Preferences.SpeechLanguage">
+            <summary>
+            Gets the speech language in IETF language tag format as specified in <see href="https://tools.ietf.org/html/bcp47">BCP 47</see>.
+            </summary>
+            <remarks>The language/locale code of the audio e.g. en-US for U.S. English.</remarks>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.Preferences.ServiceUri">
+            <summary>
+            Gets the speech service URI.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.Preferences.AuthorizationProvider">
+            <summary>
+            Gets the authorization provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.Preferences.EnableAudioBuffering">
+            <summary>
+            Gets a value indicating whether to enable buffering of audio so that in the case of network interruption the SDK will resend the buffered audio starting from the last <see cref="T:Microsoft.Bing.Speech.RecognitionResult"/>. 
+            </summary>
+            <remarks>By default the API buffers audio so it can recover from network interruptions and provide consistent recognition.
+            In cases where it is acceptable to have phrase loss within the recognition, set this property to false for near real-time streaming.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.SpeechClient">
+            <summary>
+            <see cref="T:Microsoft.Bing.Speech.ISpeechClient"/> implementation to perform speech recognition. 
+            </summary>
+            <remarks> Use this client to send audio (for example from a file or any audio source) to the speech service and receive the recognition results.</remarks>
+            <seealso cref="T:Microsoft.Bing.Speech.ISpeechClient" />
+            <example>
+            <code>
+            var preferences = new Preferences("en-us", new Uri(@"wss://speech.platform.bing.com/api/service/recognition"), new AuthorizationProvider("******************"));
+            
+            using (var speechClient = new SpeechClient(preferences))
+            {
+                speechClient.SubscribeToPartialResult(
+                    result =>
+                        {
+                            Console.WriteLine(result.DisplayText);
+                            return Task.FromResult(true);
+                        });
+            
+                speechClient.SubscribeToRecognitionResult(
+                    result =>
+                        {
+                            Console.WriteLine(result.RecognitionStatus);
+                            return Task.FromResult(true);
+                        });
+            
+                // create an audio content and pass it a stream.
+                using (var audio = new FileStream("sample.wav", FileMode.Open, FileAccess.Read))
+                {
+                    var deviceMetadata = new DeviceMetadata(DeviceType.Near, DeviceFamily.Desktop, NetworkType.Ethernet, OsName.Windows, "1607", "Dell", "T3600");
+                    var applicationMetadata = new ApplicationMetadata("SampleApp", "1.0.0");
+                    var requestMetadata = new RequestMetadata(Guid.NewGuid(), deviceMetadata, applicationMetadata, "SampleService");
+            
+                    await speechClient.RecognizeAsync(new SpeechInput(audio, requestMetadata), CancellationToken.None).ConfigureAwait(false);
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.SpeechClient.CompletedTask">
+            <summary>
+            A completed Task
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.SpeechClient.responseActions">
+            <summary>
+            The response actions
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.SpeechClient.messagingComponentFactory">
+            <summary>
+            The messaging component factory.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.SpeechClient.connectionProperties">
+            <summary>
+            The connection properties
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.SpeechClient.eventsHandlers">
+            <summary>
+            The event handlers
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.SpeechClient.audioContainerDetector">
+            <summary>
+            The audio container detector
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.SpeechClient.bufferingBehaviour">
+            <summary>
+            The buffering behavior
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.SpeechClient.recognitionState">
+            <summary>
+            The recognition state
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.SpeechClient.audioReader">
+            <summary>
+            The audio reader
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.SpeechClient.disposed">
+            <summary>
+            Tracks if the object is disposed
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.#ctor(Microsoft.Bing.Speech.Preferences)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.SpeechClient" /> class used to perform speech recognition with audio data.
+            </summary>
+            <param name="preferences">The preferences.</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.#ctor(Microsoft.Bing.Speech.Preferences,Microsoft.Bing.Messaging.IMessagingComponentFactory,Microsoft.Bing.Speech.IConnectionPropertiesFactory,Microsoft.Bing.Speech.IAudioContainerDetector)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.SpeechClient" /> class used to perform speech recognition with audio data.
+            </summary>
+            <param name="preferences">The preferences.</param>
+            <param name="messagingComponentFactory">The messaging component factory.</param>
+            <param name="connectionPropertiesFactory">The connection properties factory.</param>
+            <param name="audioContainerDetector">The audio container detector.</param>
+            <remarks>
+            This constructor is used for unit testing purposes only.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.SubscribeTo``1(System.Func{``0,System.Threading.Tasks.Task})">
+            <summary>
+            Subscribes the specific event to perform given a action.
+            </summary>
+            <typeparam name="T">Type of the subscription</typeparam>
+            <param name="action">The action.</param>
+            <remarks>Only the last action subscribed will be executed.</remarks>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.SubscribeToPartialResult(System.Func{Microsoft.Bing.Speech.RecognitionPartialResult,System.Threading.Tasks.Task})">
+            <summary>
+            Subscribes to partial speech results.
+            </summary>
+            <param name="action">The action.</param>
+            <remarks>
+            Only the last action subscribed will be executed.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.SubscribeToRecognitionResult(System.Func{Microsoft.Bing.Speech.RecognitionResult,System.Threading.Tasks.Task})">
+            <summary>
+            Subscribes to speech recognition results.
+            </summary>
+            <param name="action">The action.</param>
+            <remarks>
+            Only the last action subscribed will be executed.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.Dispose">
+            <summary>
+            Dispose and clean up resources.
+            </summary>
+            <remarks>Should only be called when the client is ready to break the connection with the Speech Recognition Server.</remarks>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.RecognizeAsync(Microsoft.Bing.Speech.SpeechInput,System.Threading.CancellationToken)">
+            <summary>
+            Streams audio asynchronously to the speech service for recognition.
+            </summary>
+            <param name="speechInput">The speech service input parameters.</param>
+            <param name="token">The cancellation token used to cancel your request at any time, or to set a request time out.</param>
+            <returns>
+            A task that completes once the request completes. In ShortPhrase mode, the task completes after getting the <see cref="T:Microsoft.Bing.Speech.RecognitionResult"/>.
+            In LongDictation mode, the task completes after the final <see cref="T:Microsoft.Bing.Speech.RecognitionResult"/>.
+            </returns>
+            <example>
+            <code>
+            var task = speechClient.RecognizeAsync(speechInput, cancellationToken);
+            </code>
+            </example>
+            <exception cref="T:System.ArgumentNullException">Speech input or one of its members was null.</exception>
+            <exception cref="T:System.NotSupportedException">Audio stream was not readable.</exception>
+            <exception cref="T:System.InvalidOperationException">Another recognition is in progress.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Failed to read any bytes from the stream.</exception>
+            <exception cref="T:System.ArgumentException">Audio stream was null.</exception>
+            <exception cref="T:Microsoft.Bing.Speech.ClientException">Recognition failed due a client side problem.</exception>
+            <exception cref="T:Microsoft.Bing.Speech.ServerException">Recognition failed due a server side problem.</exception>
+            <exception cref="T:System.ObjectDisposedException">Client was already disposed.</exception>
+            <remarks>
+            The API utilizes a single websocket connection per request. For optimal user experience, the API will attempt to reconnect to the speech service and start the recognition from the last <see cref="T:Microsoft.Bing.Speech.RecognitionResult"/>.
+            For example, consider a two minutes long audio, after successfully streaming for a minute, and some network interruption occurs, 
+            the API will resend any audio it did not receive a successful <see cref="T:Microsoft.Bing.Speech.RecognitionResult"/> for.
+            <para />
+            Note: the API keeps internal buffer for such cases.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.OnResponseStatus(Microsoft.Bing.Speech.ActionDictionary,Microsoft.Bing.Speech.SpeechClient.RecognitionState,System.Byte[])">
+            <summary>
+            Called when response status is received.
+            </summary>
+            <param name="eventsHandlers">The events handlers.</param>
+            <param name="recognitionState">State of the recognition.</param>
+            <param name="responseBody">The response body.</param>
+            <returns>
+            a Task
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.OnPartialResponse(Microsoft.Bing.Speech.ActionDictionary,Microsoft.Bing.Speech.SpeechClient.RecognitionState,System.Byte[])">
+            <summary>
+            Called when a partial response is received.
+            </summary>
+            <param name="eventsHandlers">The events handlers.</param>
+            <param name="recognitionState">State of the recognition.</param>
+            <param name="responseBody">The response body.</param>
+            <returns>
+            a Task
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.OnPhraseResponse(Microsoft.Bing.Speech.ActionDictionary,Microsoft.Bing.Speech.SpeechClient.RecognitionState,System.Byte[])">
+            <summary>
+            Called when a phrase response is received.
+            </summary>
+            <param name="eventsHandlers">The events handlers.</param>
+            <param name="recognitionState">State of the recognition.</param>
+            <param name="responseBody">The response body.</param>
+            <returns>
+            a Task
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.StreamAsync(Microsoft.Bing.Speech.RequestMetadata,System.Threading.CancellationToken)">
+            <summary>
+            Streams audio to the speech service.
+            </summary>
+            <param name="requestMetadata">The request metadata.</param>
+            <param name="token">The token.</param>
+            <returns>
+            A task
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Failed to read any bytes from the stream.</exception>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.OnBinaryResponseReceived(System.Collections.Generic.IDictionary{System.String,System.String},System.Byte[])">
+            <summary>
+            Called when the Speech Recognition Service sends a response message.
+            </summary>
+            <param name="headers">The response headers.</param>
+            <param name="message">The response message.</param>
+            <returns>
+            A task
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.ThrowIfDisposed">
+            <summary>
+            Throws <exception cref="T:System.ObjectDisposedException"> if the client is already disposed.</exception>.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">Client was already disposed.</exception>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.SpeechClient.AudioConnection">
+            <summary>
+            Audio Connection class that handles the service protocol.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="F:Microsoft.Bing.Speech.SpeechClient.AudioConnection.ConnectionRetries">
+            <summary>
+            The connection retries
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.SpeechClient.AudioConnection.connection">
+            <summary>
+            The connection
+            </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.SpeechClient.AudioConnection.messagingHeaders">
+            <summary>
+            The messaging headers
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.AudioConnection.#ctor(Microsoft.Bing.Messaging.IMessagingComponent,System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.SpeechClient.AudioConnection" /> class.
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="messagingHeaders">The messaging headers.</param>
+            <param name="impressionId">The impression identifier.</param>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.SpeechClient.AudioConnection.ImpressionId">
+            <summary>
+            The impression identifier
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.AudioConnection.ConnectAsync(Microsoft.Bing.Messaging.IMessagingComponentFactory,Microsoft.Bing.Speech.IConnectionProperties,System.Byte[],Microsoft.Bing.Speech.RequestMetadata,System.String,System.Func{System.Collections.Generic.IDictionary{System.String,System.String},System.Byte[],System.Threading.Tasks.Task})">
+            <summary>
+            Connects the asynchronous.
+            </summary>
+            <param name="connectionFactory">The connection factory.</param>
+            <param name="connectionProperties">The connection properties.</param>
+            <param name="audioHeaders">The audio headers.</param>
+            <param name="requestMetadata">The request metadata.</param>
+            <param name="clientContext">The client context.</param>
+            <param name="onMessagesReceived">The on messages received.</param>
+            <returns>
+            A new instance of AudioConnection
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.AudioConnection.SendAudio(System.Byte[],System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Sends the audio.
+            </summary>
+            <param name="chunk">The chunk.</param>
+            <param name="token">The token.</param>
+            <param name="audioEnd">if set to <c>true</c> [audio end].</param>
+            <returns>
+            A task
+            </returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.AudioConnection.Listen(System.Threading.CancellationToken)">
+            <summary>
+            Listens to the incoming messages
+            </summary>
+            <param name="token">The token.</param>
+            <returns>A task</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.AudioConnection.CloseAsync(System.Threading.CancellationToken)">
+            <summary>
+            Closes the connection.
+            </summary>
+            <param name="token">The token.</param>
+            <returns>A task</returns>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.AudioConnection.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.SpeechClient.MediaTimeInfo">
+            <summary>
+            Class to hold information about Media time.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.SpeechClient.MediaTimeInfo.MediaTime">
+            <summary>
+            The current time relative to the start of the stream.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.SpeechClient.MediaTimeInfo.MediaDuration">
+            <summary>
+            The current phrase duration relative to the audio segment.
+            </summary>            
+        </member>
+        <member name="P:Microsoft.Bing.Speech.SpeechClient.MediaTimeInfo.RewindTime">
+            <summary>
+            Gets the rewind time.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.SpeechClient.RecognitionState">
+            <summary>
+            A class to hold an active recognition state
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.SpeechClient.RecognitionState.#ctor(System.Threading.Tasks.TaskCompletionSource{System.Boolean})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.SpeechClient.RecognitionState"/> class.
+            </summary>
+            <param name="completionSource">The completion source.</param>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.SpeechClient.RecognitionState.IsRecognitionComplete">
+            <summary>
+            Gets a value indicating whether this instance is recognition complete.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.SpeechClient.RecognitionState.CompletionSource">
+            <summary>
+            Gets the completion source.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.SpeechClient.RecognitionState.ImpressionId">
+            <summary>
+            Gets or sets the impression identifier.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.SpeechClient.RecognitionState.LatestMediaTimeInfo">
+            <summary>
+            Gets the media times from the latest phrase.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.SpeechClient.RecognitionState.MediaTimeOffset">
+            <summary>
+            Gets the media time offset.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.TraceWriter">
+            <summary>
+            Wrapper class on top of System.Diagnostics.Trace for a more structured trace log.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.TraceWriter.TraceInformation(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Writes the information message to trace.
+            </summary>
+            <param name="message">The trace log message.</param>
+            <param name="instanceHashcode">Optional hash code for the caller instance.</param>
+            <param name="methodName">Name of the method calling this function.</param>
+            <param name="filePath">File path of the class calling this function.</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.TraceWriter.TraceWarning(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Writes the raw message with out any changes. The message will be persisted immediately.
+            </summary>
+            <param name="message">The trace log message.</param>
+            <param name="instanceHashcode">Optional hash code for the caller instance.</param>
+            <param name="methodName">Name of the method calling this function.</param>
+            <param name="filePath">File path of the class calling this function.</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.TraceWriter.TraceError(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Writes the raw message with out any changes. The message will be persisted immediately.
+            </summary>
+            <param name="message">The trace log message.</param>
+            <param name="instanceHashcode">Optional hash code for the caller instance.</param>
+            <param name="methodName">Name of the method calling this function.</param>
+            <param name="filePath">File path of the class calling this function.</param>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.TraceWriter.GetClassName(System.String)">
+            <summary>
+            Gets the class name from the file path.
+            </summary>
+            <param name="filePath">The file path.</param>
+            <returns>The class name</returns>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.RecognitionPhrase">
+            <summary> Recognized text with confidence level and other media timing information. </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.RecognitionPhrase.UpdateMediaTime(System.UInt64)">
+            <summary>
+            Updates the media time.
+            </summary>
+            <param name="newMediaTime">The new media time.</param>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.RecognitionPhrase.DisplayText">
+            <summary> Gets the form of recognized text that is ideal for presentation. This format includes normalization of numbers, currency values and ordinals (for example, displays "$2" for the spoken words "two dollars"). </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.RecognitionPhrase.LexicalForm">
+            <summary> Gets the unprocessed recognized text. </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.RecognitionPhrase.Confidence">
+            <summary> Indicates the level of confidence of a recognized phrase. </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.RecognitionPhrase.MediaTime">
+            <summary> Gets the time (in 100-nanosecond units) at which the phrase was recognized, relative to the start of the audio stream. </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.RecognitionPhrase.MediaDuration">
+            <summary> Gets the duration (in 100-nanosecond units) of this phrase. </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.RecognitionPhrase.#ctor">
+            <summary> Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.RecognitionPhrase" /> class. </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.RecognitionResult">
+            <summary> Recognition result returned by the Microsoft Speech Service. </summary>
+            <remarks> In ShortPhrase mode the client receives one <see cref="T:Microsoft.Bing.Speech.RecognitionResult"/>. In LongDictation mode the client receives one or more <see cref="T:Microsoft.Bing.Speech.RecognitionResult"/>. </remarks>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.RecognitionResult.#ctor(Microsoft.Bing.Speech.RecognitionStatus,System.Collections.Generic.List{Microsoft.Bing.Speech.RecognitionPhrase})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.RecognitionResult"/> class.
+            </summary>
+            <param name="recognitionStatus">The recognition status.</param>
+            <param name="phrases">The phrases.</param>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.RecognitionResult.RecognitionStatus">
+            <summary> Gets the overall recognition status. </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.RecognitionResult.Phrases">
+            <summary> Gets the set of recognized phrases when RecognitionStatus is Success. This will contain at least one recognized phrase; in dictation mode, some utterances may produce multiple phrase results. </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.RecognitionResult.#ctor">
+            <summary> Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.RecognitionResult" /> class. </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.ResponseStatus">
+            <summary>
+            Response status sent from the Microsoft Speech Service to mark the end of the request.
+            </summary>
+            <remarks>
+            This is an internal only structure.
+            </remarks>
+            <exclude />
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ResponseStatus.#ctor(System.Boolean,System.Int32,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.ResponseStatus"/> class.
+            </summary>
+            <param name="isSuccessStatusCode">if set to <c>true</c> [is success status code].</param>
+            <param name="statusCode">The status code.</param>
+            <param name="reasonPhrase">The reason phrase.</param>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.ResponseStatus.IsSuccessStatusCode">
+            <summary> Gets a value that indicates if the response was successful. </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.ResponseStatus.StatusCode">
+            <summary> Gets a value that indicates if the response was successful. </summary>
+        </member>
+        <member name="P:Microsoft.Bing.Speech.ResponseStatus.ReasonPhrase">
+            <summary> Gets the reason phrase which typically is sent by the speech service together with the status code. </summary>
+        </member>
+        <member name="M:Microsoft.Bing.Speech.ResponseStatus.#ctor">
+            <summary> Initializes a new instance of the <see cref="T:Microsoft.Bing.Speech.ResponseStatus" /> class. </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.RecognitionPartialResult">
+            <summary> Partial recognition result returned by the Microsoft Speech Service. </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.Confidence">
+            <summary> Indicates the level of confidence of a recognized phrase. </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.Confidence.None">
+            <summary> Indicates the speech service has no confidence that the recognized phrase correctly represents the audio sample associated with the phrase or that the speech recognition service did not provide a confidence value for the audio sample. </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.Confidence.High">
+            <summary> Indicates the speech service has high confidence that the recognized phrase correctly represents the audio sample associated with the phrase. </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.Confidence.Normal">
+            <summary> Indicates the speech service has normal confidence that the recognized phrase correctly represents the audio sample associated with the phrase. </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.Confidence.Low">
+            <summary> Indicates the speech service has low confidence that the recognized phrase correctly represents the audio sample associated with the phrase. </summary>
+        </member>
+        <member name="T:Microsoft.Bing.Speech.RecognitionStatus">
+            <summary> Overall recognition status. </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RecognitionStatus.None">
+            <summary> No status. </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RecognitionStatus.Success">
+            <summary> Recognition result was found. </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RecognitionStatus.NoMatch">
+            <summary> Recognition result was not found. </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RecognitionStatus.InitialSilenceTimeout">
+            <summary> Initial silence exceeded the maximum allowed time. </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RecognitionStatus.PhraseSilenceTimeout">
+            <summary> Silence timeout between phrases exceeded the maximum allowed time. </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RecognitionStatus.BabbleTimeout">
+            <summary> Background noise duration exceeded the maximum allowed time. </summary>
+        </member>
+        <member name="F:Microsoft.Bing.Speech.RecognitionStatus.Cancelled">
+            <summary> Recognition was cancelled. </summary>
+        </member>
+    </members>
+</doc>

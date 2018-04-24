@@ -1,0 +1,30 @@
+﻿<Window x:Class="OzekiDemoSoftphoneWPF.GUI.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About" Height="422" Width="319"  WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Icon="/OzekiDemoSoftphoneWPF;component/Resources/sdk_icon.ico"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        >
+    <Grid>
+    	<Grid.RowDefinitions>
+    		<RowDefinition Height="Auto" MinHeight="92.949"/>
+    		<RowDefinition/>
+    	</Grid.RowDefinitions>
+    	<Image Margin="8,8,8,0" Source="/OzekiDemoSoftphoneWPF;component/Resources/ozeki_voip_sip_sdk_pic2.png" />
+    	<DockPanel Grid.RowSpan="2" Grid.Row="1" Margin="7,8,7,0">
+    		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Text="Ozeki Demo Softphone Sample" FontSize="18.667" FontWeight="Bold" DockPanel.Dock="Top"/>
+    		<TextBlock x:Name="textBlockVersion" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" DockPanel.Dock="Top" HorizontalAlignment="Left" FontSize="14.667"><Run Language="hu-hu" Text="Version: 1.0.0"/></TextBlock>
+    		<TextBlock TextWrapping="Wrap" VerticalAlignment="Top" DockPanel.Dock="Top" Margin="0,9,0,0" FontSize="14.667" Text="This software is the copyrighted work of Ozeki.&#xd;&#xa;Use of the software is governed by the terms of the end user license agreement, which is included in the software."/>
+    		<DockPanel Margin="0,9,0,8" VerticalAlignment="Top" DockPanel.Dock="Top">
+    			<TextBlock TextWrapping="Wrap" Text="Internet:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="14.667"/>
+                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="4,0,0,0" FontSize="13.333"><Hyperlink NavigateUri="http://voip-sip-sdk.com" TargetName="_top" Click="Hyperlink_Click"> http://voip-sip-sdk.com </Hyperlink> </TextBlock>
+    		</DockPanel>
+			<DockPanel Margin="0,-3,0,8" VerticalAlignment="Top" DockPanel.Dock="Top">
+    			<TextBlock TextWrapping="Wrap" Text="Email:" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="14.667"/>
+                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="4,0,0,0" FontSize="13.333"><Hyperlink TargetName="_top" Click="email_Click" > info@voip-sip-sdk.com</Hyperlink> </TextBlock>
+    		</DockPanel>
+			
+			<TextBlock TextWrapping="Wrap" Text="{Binding Copyright}" FontSize="14" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+			<Button Content="Close" Margin="0,0.741,1,7" Width="52" DockPanel.Dock="Top" HorizontalAlignment="Right" Click="Button_Click" Height="25" VerticalAlignment="Bottom" />
+    	</DockPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,78 @@
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GUI\AboutWindow.baml
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GUI\ForwardWindow.baml
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GUI\NatDiscoveryWindow.baml
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GUI\AboutWindow.g.cs
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GUI\AccountWindow.g.cs
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GUI\ForwardWindow.g.cs
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GUI\MessageSummaryWindow.g.cs
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GUI\NatDiscoveryWindow.g.cs
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GUI\TransferWindow.g.cs
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\App.g.cs
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF_MarkupCompile.cache
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF_MarkupCompile.lref
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\bin\Debug\OzekiDemoSoftphoneWPF.exe.config
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\bin\Debug\OzekiDemoSoftphoneWPF.exe
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\bin\Debug\OzekiDemoSoftphoneWPF.pdb
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\bin\Debug\FluorineFx.dll
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\bin\Debug\OzekiComputerVision.dll
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\bin\Debug\OzekiMediaGateway.dll
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\bin\Debug\OzekiSDK.dll
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF.csprojResolveAssemblyReference.cache
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GUI\MainWindow.g.cs
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GUI\AccountWindow.baml
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GUI\MainWindow.baml
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GUI\MessageSummaryWindow.baml
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\GUI\TransferWindow.baml
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF.g.resources
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF.csproj.CoreCompileInputs.cache
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF.exe
+D:\Ozeki SDK\examples\Examples\VoIP\01_Softphone\00_OzekiDemoSoftphoneWPF\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF.pdb
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\OzekiDemoSoftphoneWPF.exe.config
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\OzekiDemoSoftphoneWPF.exe
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\OzekiDemoSoftphoneWPF.pdb
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\FluorineFx.dll
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\OzekiComputerVision.dll
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\OzekiMediaGateway.dll
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\OzekiSDK.dll
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF.csprojResolveAssemblyReference.cache
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GUI\AboutWindow.baml
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GUI\ForwardWindow.baml
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GUI\NatDiscoveryWindow.baml
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GUI\AboutWindow.g.cs
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GUI\AccountWindow.g.cs
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GUI\ForwardWindow.g.cs
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GUI\MainWindow.g.cs
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GUI\MessageSummaryWindow.g.cs
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GUI\NatDiscoveryWindow.g.cs
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GUI\TransferWindow.g.cs
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\App.g.cs
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF_MarkupCompile.cache
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF_MarkupCompile.lref
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GUI\AccountWindow.baml
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GUI\MainWindow.baml
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GUI\MessageSummaryWindow.baml
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\GUI\TransferWindow.baml
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF.g.resources
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF.csproj.CoreCompileInputs.cache
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF.exe
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF.pdb
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\obj\Debug\OzekiDemoSoftphoneWPF.csproj.CopyComplete
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Bond.Attributes.dll
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Bond.dll
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Bond.IO.dll
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Bond.JSON.dll
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Microsoft.Bing.Messaging.dll
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Microsoft.Bing.Speech.dll
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Microsoft.VisualStudio.Threading.dll
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Microsoft.VisualStudio.Validation.dll
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Newtonsoft.Json.dll
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Bond.xml
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Bond.Attributes.xml
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Bond.IO.xml
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Bond.JSON.xml
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Microsoft.Bing.Speech.xml
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Microsoft.VisualStudio.Threading.xml
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Microsoft.VisualStudio.Validation.xml
+C:\Users\raj\Desktop\OzekiDemoSoftphone\OzekiDemoSoftphoneWPF\bin\Debug\Newtonsoft.Json.xml
